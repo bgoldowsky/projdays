@@ -1,0 +1,24 @@
+<div style="float: right"><%= link_to 'Cancel/Back to project', :action => 'show', :id => @sess.project %></div>
+<h1>New session for <%= @sess.project.name %></h1>
+
+<% form_for :sess do |form| %>
+<%= error_messages_for 'sess' %>
+
+<p><label>Location:
+  <%= form.select(:location_id, Location.list.map {|l| [l.name, l.id]}, :prompt=>"No location") %>
+</label></p>
+
+<h2>Times:</h2>
+<p>
+<% for time in @timeslots %>
+  <label>
+   <input type="checkbox" id="<%= time.id %>" name="time_ids[]" value="<%=time.id %>"
+     <%if @sess.timeslots.include? time%>checked="checked"<%end%> />
+     <%= "#{time.day} #{time.start}-#{time.stop}" %>
+   </label><br />
+<% end %>
+
+  <%= form.hidden_field :project_id %>
+  <%= submit_tag "Create" %>
+<% end %>
+

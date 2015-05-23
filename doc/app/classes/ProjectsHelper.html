@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: ProjectsHelper</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">ProjectsHelper</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/helpers/projects_helper_rb.html">
+                app/helpers/projects_helper.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000165">person_note_if_scheduled</a>&nbsp;&nbsp;
+      <a href="#M000167">sess_sched_links</a>&nbsp;&nbsp;
+      <a href="#M000166">sess_sched_toggle</a>&nbsp;&nbsp;
+      <a href="#M000168">sess_unsched_links</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000165" class="method-detail">
+        <a name="M000165"></a>
+
+        <div class="method-heading">
+          <a href="#M000165" class="method-signature">
+          <span class="method-name">person_note_if_scheduled</span><span class="method-args">(proj, person)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Show person&#8216;s name, but note if they&#8216;re already scheduled.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000165-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000165-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/projects_helper.rb, line 4</span>
+ 4:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">person_note_if_scheduled</span> (<span class="ruby-identifier">proj</span>, <span class="ruby-identifier">person</span>)
+ 5:     <span class="ruby-identifier">plink</span> = <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">person</span>.<span class="ruby-identifier">name</span>, <span class="ruby-identifier">:controller=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'people'</span>, <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'show'</span>, <span class="ruby-identifier">:id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">person</span>)
+ 6:     <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">proj</span>.<span class="ruby-identifier">assignment_for_person</span>(<span class="ruby-identifier">person</span>))
+ 7:       <span class="ruby-value str">&quot;&lt;del&gt;&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">plink</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;&lt;/del&gt;&quot;</span>
+ 8:     <span class="ruby-keyword kw">else</span>
+ 9:       <span class="ruby-identifier">plink</span>
+10:     <span class="ruby-keyword kw">end</span>
+11:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000167" class="method-detail">
+        <a name="M000167"></a>
+
+        <div class="method-heading">
+          <a href="#M000167" class="method-signature">
+          <span class="method-name">sess_sched_links</span><span class="method-args">(req)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000167-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000167-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/projects_helper.rb, line 35</span>
+35:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sess_sched_links</span> (<span class="ruby-identifier">req</span>)
+36:     <span class="ruby-identifier">res</span> = <span class="ruby-value str">''</span>
+37:     <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">s</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">sesses</span>.<span class="ruby-identifier">sort</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">&lt;=&gt;</span><span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_s</span>}
+38:       <span class="ruby-identifier">link</span> = <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'assign_requester'</span>, <span class="ruby-identifier">:id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">req</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:sess=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">s</span>, <span class="ruby-identifier">:role=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">req</span>.<span class="ruby-identifier">role</span>)
+39:       <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">s</span>.<span class="ruby-identifier">assignments</span>.<span class="ruby-identifier">detect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">person</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">person</span>})
+40:         <span class="ruby-identifier">res</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&lt;span class=\&quot;scheduled\&quot;&gt;#{link}&lt;/span&gt;&quot;</span>
+41:       <span class="ruby-keyword kw">elsif</span> (<span class="ruby-identifier">s</span>.<span class="ruby-identifier">conflict_for_person</span>(<span class="ruby-identifier">req</span>.<span class="ruby-identifier">person</span>))
+42:         <span class="ruby-identifier">res</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&lt;span class=\&quot;conflict\&quot;&gt;#{link}&lt;/span&gt;&quot;</span>
+43:       <span class="ruby-keyword kw">else</span>
+44:         <span class="ruby-identifier">res</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">link</span>
+45:       <span class="ruby-keyword kw">end</span>
+46:     <span class="ruby-keyword kw">end</span>
+47:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>
+48:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000166" class="method-detail">
+        <a name="M000166"></a>
+
+        <div class="method-heading">
+          <a href="#M000166" class="method-signature">
+          <span class="method-name">sess_sched_toggle</span><span class="method-args">(req, sess, trid)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000166-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000166-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/projects_helper.rb, line 13</span>
+13:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sess_sched_toggle</span> (<span class="ruby-identifier">req</span>, <span class="ruby-identifier">sess</span>, <span class="ruby-identifier">trid</span>)
+14:     <span class="ruby-identifier">assg</span> = <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">assignments</span>.<span class="ruby-identifier">detect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">person</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">person</span>}
+15:     <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">assg</span>)
+16:       <span class="ruby-identifier">link</span> = <span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'sched_unassign'</span>, <span class="ruby-identifier">:id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">assg</span>, <span class="ruby-identifier">:trid=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">trid</span>)
+17:       <span class="ruby-identifier">r</span> = <span class="ruby-value str">&quot;&lt;span class=\&quot;scheduled\&quot;&gt;&quot;</span>
+18:       <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&lt;a href=\&quot;#\&quot; onclick=\&quot;update_tr('#{trid}', '#{link}')\&quot;&gt;#{req.project.abbrev}&lt;/a&gt;&quot;</span>
+19:     <span class="ruby-keyword kw">else</span>
+20:       <span class="ruby-identifier">conflict</span> = <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">conflict_for_person</span>(<span class="ruby-identifier">req</span>.<span class="ruby-identifier">person</span>)
+21:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">conflict</span>
+22:         <span class="ruby-identifier">link</span> = <span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'sched_assign'</span>, <span class="ruby-identifier">:id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">conflict</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:req=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">req</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:sess=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">sess</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:trid=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">trid</span>)
+23:         <span class="ruby-identifier">r</span> = <span class="ruby-value str">&quot;&lt;span class=\&quot;conflict\&quot;&gt;&quot;</span>
+24:         <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&lt;a href=\&quot;#\&quot; onclick=\&quot;update_tr('#{trid}', '#{link}')\&quot;&gt;#{conflict.sess.project.abbrev}&lt;/a&gt;&quot;</span>
+25:       <span class="ruby-keyword kw">else</span>
+26:         <span class="ruby-identifier">link</span> = <span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'sched_assign'</span>, <span class="ruby-identifier">:req=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">req</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:sess=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">sess</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">:trid=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">trid</span>)
+27:         <span class="ruby-identifier">r</span> = <span class="ruby-value str">&quot;&lt;span class=\&quot;unsched\&quot;&gt;&quot;</span>
+28:         <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&lt;a href=\&quot;#\&quot; onclick=\&quot;update_tr('#{trid}', '#{link}')\&quot;&gt;+&lt;/a&gt;&quot;</span>
+29:       <span class="ruby-keyword kw">end</span>
+30:     <span class="ruby-keyword kw">end</span>
+31:     <span class="ruby-identifier">r</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;&lt;/span&gt;&quot;</span>
+32:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">r</span>
+33:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000168" class="method-detail">
+        <a name="M000168"></a>
+
+        <div class="method-heading">
+          <a href="#M000168" class="method-signature">
+          <span class="method-name">sess_unsched_links</span><span class="method-args">(req)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000168-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000168-source">
+<pre>
+    <span class="ruby-comment cmt"># File app/helpers/projects_helper.rb, line 50</span>
+50:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sess_unsched_links</span> (<span class="ruby-identifier">req</span>)
+51:     <span class="ruby-identifier">res</span> = <span class="ruby-value str">&quot;&quot;</span>
+52:     <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">s</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">project</span>.<span class="ruby-identifier">sesses</span>.<span class="ruby-identifier">sort</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_s</span><span class="ruby-operator">&lt;=&gt;</span><span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_s</span>}
+53:       <span class="ruby-identifier">a</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">assignments</span>.<span class="ruby-identifier">detect</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">person</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">person</span>}
+54:       <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">a</span>)
+55:         <span class="ruby-identifier">res</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">link_to</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">:action=</span><span class="ruby-operator">&gt;</span><span class="ruby-value str">'unassign'</span>, <span class="ruby-identifier">:id=</span><span class="ruby-operator">&gt;</span><span class="ruby-identifier">a</span>)
+56:       <span class="ruby-keyword kw">end</span>
+57:     <span class="ruby-keyword kw">end</span>
+58:     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span>
+59:   <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+<h1>Listing sess</h1>
+
+<ul>  
+<% for s in @sess %>
+  <li><%= s.to_s %>
+    <%= link_to 'Show', :action => 'show', :id => s %> |
+    <%= link_to 'Edit', :action => 'edit', :id => s %> |
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => s }, :confirm => 'Are you sure?', :post => true %>
+  </li>
+<% end %>
+</ul>
+
+<br />
+
+<%= link_to 'New sess', :action => 'new' %>

@@ -1,0 +1,41 @@
+<h1>Application Settings</h1>
+
+<% form_tag do -%>
+
+<table>
+ <thead>
+  <tr><th>Setting</th><th>Allow?</th><th>Notes</th>
+ </thead>
+ <tbody>
+  <tr>
+   <td class="main">Staff can edit class lists</td>
+   <td><%= check_box_tag 'staff_edit_people', 'true', @staff_edit_people %></td>
+   <td>Usually allowed at start of year, then false after class lists are in</td>
+  </tr>
+  <tr>
+   <td class="main">Staff can edit projects</td>
+   <td><%= check_box_tag 'staff_edit_projects', 'true', @staff_edit_projects %></td>
+   <td>Usually allowed at start of year, false once list of projects is final</td>
+  </tr>
+  <tr>
+   <td class="main">Public can view list of projects</td>
+   <TD><%= check_box_tag 'public_view_projects', 'true', @public_view_projects %></td>
+   <td>Usually allowed after final list of projects is established</td>
+  </tr>
+  <tr>
+   <td class="main">Staff can see schedule</td>
+   <td><%= check_box_tag 'staff_view_schedule', 'true', @staff_view_schedule %></td>
+   <td>Usually allowed when schedule is finalized</td>
+  </tr>
+  <tr>
+   <td class="main">Staff can review projects</td>
+   <td><%= check_box_tag 'staff_review_projects', 'true', @staff_review_projects %></td>
+   <td>Usually allowed after project days are over</td>
+  </tr>
+ </tbody>
+</table>
+
+<br />
+<%= submit_tag 'Save changes' %>
+
+<% end -%>

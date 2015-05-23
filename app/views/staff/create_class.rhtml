@@ -1,0 +1,34 @@
+<script type="text/javascript">
+function stopRKey(evt) {
+  var evt = (evt) ? evt : ((event) ? event : null);
+  var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null);
+  if ((evt.keyCode == 13) && (node.type=="text"))  {return false;}
+}
+document.onkeypress = stopRKey;
+</script>
+<div style="float: right"><%= link_to 'Cancel/Back to list', :action => 'classroom', :id=>@classroom %></div>
+<h1>Entering class list</h1>
+
+<% form_for :clist, @clist, :url=>{ :action => 'create_class' } do |f| %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+     <% for @p in @people %>
+      <tr>
+       <% fields_for "p[]" do |ff| %>
+        <td><%= text_field "p[]", :name %></td>
+        <td><%= grade_select_classroom "p[]", :grade, @classroom %>
+            <%= error_messages_for :p, :header_message=>'', :message=>'' %></td>
+       <% end %>
+     </tr>
+     <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag 'Save changes' %>
+<% end %>
+

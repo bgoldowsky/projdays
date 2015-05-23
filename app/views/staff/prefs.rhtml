@@ -1,0 +1,18 @@
+<h1>Preferences</h1>
+
+<% form_tag do %>
+<table>
+  <% for p in @prefs %>
+   <tr>
+     <td><%=h p.category.name %></td>
+     <td><%= pref_select(:p, :value) %></td>
+   </tr>
+ <% end %>
+</table>
+<br />
+
+<%= submit_tag 'Save' %>
+<p><span class="cancel"><%= link_to 'Cancel changes', :action => :index %></span></p>
+
+<% end %><!-- end form -->
+

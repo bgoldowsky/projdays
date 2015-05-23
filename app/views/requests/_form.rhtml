@@ -1,0 +1,29 @@
+<%= error_messages_for 'req' %>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="req_rank">Rank</label>
+  </div>
+  <div class="formitem">
+    <%= rank_select(:req, :rank) %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="req_rank">Role</label>
+  </div>
+  <div class="formitem">
+    <%= role_select(:req, :role) %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="req.project">Project</label>
+  </div>
+  <div class="formitem">
+    <%= project_select(:req, :project_id) %>
+  </div>
+</div>
+<br clear="all"/>

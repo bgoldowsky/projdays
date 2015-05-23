@@ -1,0 +1,15 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to project', :action=>'show', :id=>@project %>
+</div>
+
+<h1><%= @project.name %>: Merge</h1>
+
+<p class="info">Merging this project with another will cause everyone
+who requested this project to be also listed as having requested the
+other project.</p>
+
+<p><strong>Merge with:</strong><br />
+<% form_tag do %>
+<%= project_select :merge, :project %>
+<%= submit_tag "Confirm" %>
+<% end %>

@@ -1,0 +1,9 @@
+<h1>Who are you?</h1>
+
+<div class="chooselist">
+  <% for p in @people %>
+    <%= link_to p.name, :action=>'edit', :id=>p %><br />
+<% end %>
+</div>
+
+<%= link_to 'Back to list of classrooms', :action=>'index' %>

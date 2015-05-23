@@ -1,0 +1,31 @@
+<h1>Currently unscheduled for <%=h @t.longdesc %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Grade</th>
+      <% for i in 1..@maxrank %>
+        <th><%= showrank(i) %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% for p in @people %>
+      <td><%= link_to p.name, :controller => 'people', :action => 'show', :id=>p  %></td>
+        <td><%= grade(p.grade) %></td>
+        <% for i in 1..@maxrank %>
+          <td>
+            <% for r in p.requests.reject{|r| r.rank!=i} %>
+              <% cls = (p.schedule_to(r.project) ? 'scheduled' : 'unsched') %>
+              <span class="<%=cls%>">
+                <%= r.project.display_name + (r.role!='P' ? " (#{r.role})" : "")%>
+              </span>
+            <% end %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

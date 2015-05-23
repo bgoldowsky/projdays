@@ -1,0 +1,16 @@
+<h1>Editing request</h1>
+
+<div style="float: right"><%= link_to 'Cancel/Back to project', :controller=>'projects', :action=>'show', :id => @req.project %></div>
+
+<% form_for :req do |form| %>
+  <div class="formrow">
+    <div class="formlabel">
+      <label for="req_person">Person</label>
+    </div>
+    <div class="formitem">
+      <%= select :req, :person_id, @person_selection %>
+    </div>
+  </div>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Update" %>
+<% end %>

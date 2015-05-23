@@ -1,0 +1,158 @@
+<script language="javascript">
+
+$(document).ready(function() {
+	jQuery('#tbl').tableSorter({
+      sortClassAsc: 'sortUp',
+      sortClassDesc: 'sortDown'
+    });
+});
+
+function showLL() {
+    $('.ll').toggleClass('hide');
+    return false;
+}
+
+</script>
+<style type="text/css">
+.hide { display: none }
+</style>
+
+<h1>Fullness of Projects</h1>
+
+<p>
+  <%= link_to 'Create new project', :action=>'new' %>
+  | <%= link_to 'Project/leader requests', :action=>'list' %>
+  | <%= link_to '# by grade', :action=>'by_grade' %>
+  | Printable view: for 
+    <%= link_to 'K', :action=>'printable', :id=>0 %>
+    <%= link_to '1', :action=>'printable', :id=>1 %>
+    <%= link_to '2', :action=>'printable', :id=>2 %>
+    <%= link_to '3', :action=>'printable', :id=>3 %>
+    <%= link_to '4', :action=>'printable', :id=>4 %>
+    <%= link_to '5', :action=>'printable', :id=>5 %>
+    <%= link_to '6', :action=>'printable', :id=>6 %>
+    <%= link_to 'All', :action=>'printable', :id=>-1 %>
+</p>
+
+<table id="tbl" style="float: left">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Grades</th>
+      <th>Reqs</th>
+      <th>Cap'ty</th>
+      <% for t in @timeslots %>
+        <th><%= t.to_s %></th>
+      <% end %>
+      <th>Total</th>
+      <th class="ll hide">Have leaders?</th>
+      <th class="ll hide">Locs?</th>
+    </tr>
+  </thead>  
+  <tbody>
+    <% for project in @projects %>
+    <% row_tot = 0 %>
+    <% have_leaders = true %>
+    <% have_locs = true %>
+    <% sesses = project.sesses %>
+    <tr>
+      <td><%= link_to project.display_name, :action=>'show', :id=>project %></td>
+      <td><%=h grade_range(project) %></td>
+      <td><%=h project.student_requesters.size %></td>
+      <td><%=h project.capacity %></td>
+      <% for t in @timeslots %>
+        <% s=project.sess_in_timeslot(t) %>
+        <% if(s) %>
+          <td class="num <%= s.confirmed ? ' confirmed' : ''%>">
+            <% c=s.student_count; row_tot+=c; @col_tot[t.id]+=c %>
+            <% if project.isreal %>
+              <% @col_cap[t.id] += project.capacity %>
+              <% @col_count[t.id] += 1 %>
+              <% if s.location == nil; have_locs = false; end %>
+              <% if s.leader_count == 0; have_leaders = false; end %>
+            <% end %>
+            <%= numcomp(c, project.capacity) %>
+          </td>
+        <% else %>
+          <td></td>
+        <% end %>
+      <% end %>
+      <td class="num"><%= row_tot %></td>
+      <td class="ll hide num">
+        <% if project.isreal and have_leaders %>
+          &#x2714;
+        <% elsif project.isreal and row_tot>0 and !have_leaders %>
+          X
+        <% end %>
+      </td> 
+      <td class="ll hide num">
+        <% if row_tot>0 and project.isreal %>
+          <%= have_locs ? "&#x2714;" : "X" %>
+        <% end %>
+      </td> 
+    </tr>
+  <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td><strong>Projects</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <% for t in @timeslots %>
+        <td class="num"><%= @col_count[t.id] %></td>  
+      <% end %>
+      <td></td>
+      <td class="ll hide"></td>
+      <td class="ll hide"></td>
+    </tr>
+    <tr>
+      <td><strong>Total Sched.</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <% for t in @timeslots %>
+        <td class="num"><%= @col_tot[t.id] %></td>  
+      <% end %>
+      <td></td>
+      <td class="ll hide"></td>
+      <td class="ll hide"></td>
+    </tr>
+    <tr>
+      <td><strong>Total Cap.</strong></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <% for t in @timeslots %>
+        <td class="num"><%= @col_cap[t.id] %></td>  
+      <% end %>
+      <td></td>
+      <td class="ll hide"></td>
+      <td class="ll hide"></td>
+    </tr>
+    <tr>
+      <td colspan="4"><strong>Who is unscheduled?</strong></th>
+      <% for t in @timeslots %>
+        <td class="num">
+          <%= link_to (@students.length - @col_tot[t.id]), :action=>'unscheduled', :id=>t %>
+        </td>
+      <% end %>
+      <td></td>
+      <td class="ll hide"></td>
+      <td class="ll hide"></td>
+    </tr>
+  </tfoot>  
+</table>
+<a href="#" onclick="return showLL();"> Show/Hide</a>
+
+<br clear="all">
+
+<% tot_sched=0; for t in @col_tot; t ? tot_sched+=t : ''; end %>
+<% tot_slots= @timeslots.size * @students.size %>
+<p>
+  <strong>Grand Total:</strong>
+  <%= tot_sched %> out of <%= tot_slots %> scheduled
+  <% if(tot_slots>0) %>
+  <%=  "(" + (tot_sched*100/tot_slots).to_s + "%)"  %>
+  <% end %>
+</p>

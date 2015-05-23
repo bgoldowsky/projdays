@@ -1,0 +1,21 @@
+<h1>Choose a Project Days entry point:</h1>
+
+<p><a href="/welcome/staff_login"><strong>Staff:</strong> log in</a></p>
+
+<p><a href="/welcome/parent_login"><strong>Parents &amp; Volunteers:</strong> sign up to help</a></p>
+
+<% if @can_edit %>
+  <p><a href="/welcome/unit_login"><strong>Unit Students:</strong> sign up to lead projects</a></p>
+<% end %>
+
+<p><a href="choose"><strong>All Students:</strong> choose projects</a></p>
+
+<% if @project_list_public %>
+ <p><a href="guest/projects"><strong>Anyone:</strong> view project list</a></p>
+<% end %>
+
+<br />
+
+<p style="font-size: 80%"><a href="/welcome/admin_login">Project Days
+Coordinator login</a></p>
+

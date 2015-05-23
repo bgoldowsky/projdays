@@ -1,0 +1,25 @@
+<h1>Post-Project Days Notes</h1>
+
+<h2>General Notes</h2>
+<ul>
+ <% for n in @notes %>
+  <li>
+    <strong><%= n.year %>:</strong>
+    <%= link_to "view", :action=>'view_notes', :id=>n %>
+  </li>
+ <% end %>
+  <% if @can_review %>
+    <li><strong>
+      <%= @thisyear %>:
+      <%= link_to "Give feedback here", :action=>'edit_notes' %>
+    </strong></li>
+  <% end %>
+</ul>
+
+<h2>Notes on your projects</h2>
+
+<% for p in @projects %>
+  <% if p.real %>
+    <p><%= link_to p.name, :action=>'edit_review', :id=>p %></p>
+  <% end %>
+<% end %>

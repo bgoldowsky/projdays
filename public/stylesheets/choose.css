@@ -1,0 +1,51 @@
+@import url("main.css");
+
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   12pt;
+  line-height: 15pt;
+}
+
+.column {
+  float: left;
+  margin: 0px;
+  width: 400px;
+  padding: 0px 10px;
+}
+
+.projlist {
+  margin: 0px 20px 20px 430px;
+}
+
+.request {
+  margin-left: 4em;
+  text-indent: -4em;
+}
+
+.choices {
+  position: fixed;
+  width: 400px;
+}  
+
+.chooselist {
+  text-align: center;
+}
+
+table {
+  margin-left: 3px;
+}
+
+td {
+  padding: 0em .5em;
+}
+
+.minorlink a {
+  font-size: 80%;
+  color: #444444;
+}
+
+.moveform {
+  display: none;
+  padding: 20px 5px;
+  background: #FFFFAA;
+}

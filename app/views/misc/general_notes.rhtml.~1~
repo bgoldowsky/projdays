@@ -1,0 +1,12 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to list', :action => 'reviews' %>
+</div>
+
+<h1>Post-Project-Days Notes</h1>
+
+<p>This is a shared page which can include everyone's notes
+and ideas.  Feel free to include your name with your comments, or not.</p>
+<% form_for :note do |f| %>
+  <%= f.text_area :text, :cols=>60, :rows=>20 %><br />
+  <%= submit_tag 'Save' %>
+<% end %>

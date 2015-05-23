@@ -1,0 +1,29 @@
+<h2>Not-real projects with sessions</h2>
+
+<ul>
+  <% for p in @fake_projects %>
+    <% for s in p.sesses %>
+      <li>
+        <%= projlink(p) + ': ' + s.to_s %>
+        <% if s.assignments.size > 0 %>
+          <%=h '(' + s.assignments.size.to_s + ' people scheduled)' %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<h2>Not-this-year projects with sessions</h2>
+
+<ul>
+  <% for p in @old_projects %>
+    <% for s in p.sesses %>
+      <li>
+        <%= projlink(p) + ': ' + s.to_s %>
+        <% if s.assignments.size > 0 %>
+          <%=h '(' + s.assignments.size.to_s + ' people scheduled)' %>
+        <% end %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>

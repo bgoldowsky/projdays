@@ -1,0 +1,24 @@
+<%= error_messages_for 'person' %>
+
+<!--[form:person]-->
+<p><label for="person_name">Name</label><br />
+<%= text_field 'person', 'name'  %></p>
+
+<p><label for="person_email">Email</label><br />
+<%= text_field 'person', 'email'  %></p>
+
+<p><label for="person_password">Password</label><br />
+<%= text_field 'person', 'password'  %></p>
+
+<p><label for="person_classroom_id">Class</label><br />
+<%= select('person', 'classroom_id', @classrooms.collect {|c| [c.name, c.id]}) %></p>
+
+<p><label for="person_grade">Grade</label><br/>
+<%= grade_select_all 'person', 'grade' %><br />
+</p>
+
+<p><label for="person_notes">Notes</label><br/>
+<%= text_area 'person', 'notes', :cols => 60, :rows => 10  %></p>
+
+<!--[eoform:person]-->
+

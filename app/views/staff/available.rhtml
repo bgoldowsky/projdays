@@ -1,0 +1,41 @@
+<h1>Preferences: Volunteers and FSS Staff</h1>
+
+<p>After kids enter their preferences, adults will get moved around to
+staff popular projects.<br />
+<strong>All adults should fill out this page with their personal
+preferences.</strong> 
+<ul>
+  <li><em>Yes!</em> gives you first priority to participate in that style project.</li>
+  <li><em>Okay</em> means that you are in a pool of potential helpers and leaders.</li>
+  <li><em>No, thanks</em> will keep you off the list.
+</ul>
+</p>
+
+<% form_tag do %>
+
+<table style="margin-left: 1em">
+  <% for p in @prefs %>
+   <tr>
+     <td><%=h p.category.name %></td>
+     <td><%= pref_select(p) %></td>
+   </tr>
+ <% end %>
+</table>
+
+<p>Please check all times that will work for you:<br />
+<% for ses in @unavail_sesses %>
+  <%= checkbox_for_timeslot(ses.timeslots.first, !@user.is_assigned?(ses)) %>
+  <br />
+<% end %>
+</p>
+
+<p>Use "notes" to give the PD coordinator any information (desires or
+constraints) that affect your scheduling.  If you are a
+high-school-aged alum, please note your current grade level.<br />
+<%= text_area_tag 'notes', @user.notes, {:cols=>60, :rows=>5} %>
+</p>
+
+<%= submit_tag 'Save' %>
+
+<% end %>
+

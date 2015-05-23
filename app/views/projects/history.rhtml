@@ -1,0 +1,23 @@
+<span class="blockcontrol">
+  <%= link_to 'Back to project', :action=>'show', :id=>@project %><br/>
+  <%= link_to 'Project list', :action=>'index' %>
+</span>
+
+<h2>History of project: <%= @project.name %></h2>
+<table>
+  <thead>
+    <% for column in [ 'year', 'leaders', 'helpers', 'participants' ] %>
+      <th><%= column %></th>
+    <% end %>
+  </thead>
+  <tbody>
+  <% for y in @years %>
+    <tr valign="top">
+      <td><strong><%= y %></strong></td>
+      <td><%= @histories.find_all{|h|h.year==y and h.role=='L'}.map{|h|h.who}.sort.join("<br/>") %></td>
+      <td><%= @histories.find_all{|h|h.year==y and h.role=='H'}.map{|h|h.who}.sort.join("<br/>") %></td>
+      <td><%= @histories.find_all{|h|h.year==y and h.role=='P'}.map{|h|h.who}.sort.join("<br/>") %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

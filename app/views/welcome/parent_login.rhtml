@@ -1,0 +1,32 @@
+<p style="color: green"><%= flash[:notice] %></p>
+
+<fieldset>
+  <legend>Please log in</legend>
+<% form_tag do %>
+  <div class="formrow">
+    <label class="formlabel" for="person">Name:</label>
+    <div class="formitem"><%= select :user, :id, @users.collect{|u|[u.name,u.id]}, { :prompt=>"Select..." } %></div>
+  </div>
+
+  <div class="formrow">
+    <label class="formlabel" for="password">Password:</label>
+    <div class="formitem"><%= password_field_tag :password, params[:password] %></div>
+  </div>
+
+  <div class="formrow">
+    <div class="formlabel"></div>
+    <div class="formitem"><%= submit_tag 'Login' %></div>
+  </div>
+
+<% end %>
+</fieldset>
+<br />
+<fieldset>
+<legend>Or, create a new account</legend>
+  <div class="formrow">
+    <div class="formlabel"></div>
+    <div class="formitem">
+      <%= link_to 'Create an account', 'new_account' %>
+    </div>
+  </div>
+</fieldset>

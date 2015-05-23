@@ -1,0 +1,20 @@
+<div class="formrow">
+  <div class="formlabel">
+    <label for="assignment_person">Project Owner</label>
+    You will be responsible for this project.
+  </div>
+  <div class="formitem">
+    <%= @ownreq.person.name %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="assignment_person">Co-owner</label>
+    If you are signing up as a team, put the other person here.
+  </div>
+  <div class="formitem">
+    <%= hidden_field :req, :id %>
+    <%= staff_select(:req, :person_id) %>
+  </div>
+</div>

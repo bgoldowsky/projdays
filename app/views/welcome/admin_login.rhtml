@@ -1,0 +1,18 @@
+<!-- staff.rhtml -->
+<h1>Administrator Login</h1>
+<fieldset>
+  <legend>Please log in</legend>
+<% form_tag do %>
+
+  <p class="formrow">
+    <label class="formlabel" for="password">Password:</label>
+    <div class="formitem"><%= password_field_tag :password, params[:password] %></div>
+  </p>
+
+  <p class="formrow">
+    <div class="formlabel"></div>
+    <div class="formitem"><%= submit_tag 'Login' %></div>
+  </p>
+
+<% end %>
+</fieldset>

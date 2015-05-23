@@ -1,0 +1,19 @@
+<h1>Project Owners</h1>
+
+<table>
+  <thead>
+    <tr><th>Class</th><th>Name</th><th>Projects Owned</th></tr>
+  <% for p in @people %>
+    <% projs = p.requests_with_rank_and_role(1,'L') %>
+    <% if p.adult? or !projs.empty? %>
+      <tr>
+        <td><%= p.classroom.shortname %></td>
+        <td><%= p.name %></td>
+        <td>
+          <%= projs.map{|r| r.project.shortname}.join(', ') %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+

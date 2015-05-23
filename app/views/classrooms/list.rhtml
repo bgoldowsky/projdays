@@ -1,0 +1,13 @@
+<h1>Classrooms and Groups:</h1>
+
+<ul>
+<% for classroom in @classrooms %>
+  <li>
+    <%= link_to classroom.name, :action=>'show', :id=>classroom %>
+  </li>
+<% end %>
+</ul>
+
+<br />
+
+<%= link_to 'New classroom', :action => 'new' %>

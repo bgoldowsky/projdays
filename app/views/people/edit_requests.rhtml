@@ -1,0 +1,29 @@
+<div style="float: right"><%= link_to 'Cancel/Back to person', :action => 'show', :id => @person %></div>
+<h1>Edit all requests</h1>
+
+<% form_tag :action => 'edit_requests', :id => @person do %>
+
+<table>
+  <tr>
+    <th>Project</th>
+    <% for r in 1..@maxrank %>
+      <th>&nbsp;<%= showrank(r) %>&nbsp;</th>
+    <% end %>
+  </tr>
+  <% for p in @projects %>
+    <% req = @requests.detect{|r| r.project==p} %>
+    <tr>
+      <td><%= link_to p.display_name, :controller=>'projects', :action=>'show', :id=>p %></td>
+      <% for rank in 1..@maxrank %>
+        <td>
+          <%= check_box_tag "req[#{p.id}][]", rank, (req && req.rank==rank) %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<%= submit_tag 'Save changes' %>
+
+<% end %>
+

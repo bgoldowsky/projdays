@@ -1,0 +1,24 @@
+<% for i in 0..@timeslots.length-1 %>
+ <% if i%3 == 0 %>
+   <div style="page-break-inside: avoid; page-break-after: always;">
+   <table><tr>
+ <% end %>
+ <td style="vertical-align: top">
+  <h2><%= @timeslots[i].longdesc %></h2>
+  <p>
+  <% for s in @timeslots[i].sesses_by_name %>
+    <% if s.project.real and s.project.thisyear %>
+      <strong><%= s.project.name %>:</strong> <%= s.location_name %><br />
+    <% end %>
+  <% end %>
+  </p>
+ </td>
+ <% if i%3 == 2 %>
+   </tr></table></div>
+ <% end %>
+<% end %>
+
+<!-- if the number of sessions is not a multiple of 3, still need to close. %>
+<% if @timeslots.length%3 != 2 %>
+   </tr></table></div>
+<% end %>

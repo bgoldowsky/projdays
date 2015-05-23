@@ -1,0 +1,18 @@
+<h1>My Availability</h1>
+
+<p>When are you available to help out with Project Days?</p>
+
+<p>Please check all times that will work for you.  You can edit this
+information later under the "My Schedule" tab.</p>
+
+<% form_tag do %>
+
+<% for ses in @unavail_sesses %>
+  <%= checkbox_for_timeslot(ses.timeslots.first, !@user.is_assigned?(ses)) %>
+  <br />
+<% end %>
+
+<%= submit_tag 'Save' %>
+
+<% end %>
+

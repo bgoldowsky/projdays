@@ -1,0 +1,15 @@
+<h1>Availability: <%=h @user.name %></h1>
+
+<p>Checkmarks represent times that this person is available.</p>
+
+<% form_tag do %>
+
+<% for ses in @unavail_sesses %>
+  <%= checkbox_for_timeslot(ses.timeslots.first, !@user.is_assigned?(ses)) %>
+  <br />
+<% end %>
+
+<%= submit_tag 'Save' %>
+
+<% end %>
+

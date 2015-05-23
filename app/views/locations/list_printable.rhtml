@@ -1,0 +1,27 @@
+<style type="text/css">
+table { width: 100%; }
+th    { width: 15%; }
+</style>
+
+<h1>Locations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+	  <% for t in @timeslots %>
+	    <th><%= t.to_s %></th>
+	  <% end %>
+	</tr>
+  </thead>
+  <tbody>      
+    <% for location in @locations %>
+      <tr>
+        <td><%= link_to location.name, :action => 'edit', :id => location %></td>
+        <% for t in @timeslots %>
+	      <td><%= location.sesses_in(t).map{|s| loc_popup(s)}.join('<br/>') %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

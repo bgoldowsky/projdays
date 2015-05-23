@@ -1,0 +1,23 @@
+<h1>Print out which schedules?</h1>
+
+<p>
+  <a href="javascript:void(0)" onclick="$(':checkbox').each(function() { this.checked = true; })">Select all</a> |
+  <a href="javascript:void(0)" onclick="$(':checkbox').each(function() { this.checked = false; })">Select none</a>
+</p>
+
+<% form_tag :action=>'leader_schedules' do %>
+
+<%= submit_tag 'View schedules' %>
+
+<p>
+<% for p in @people %>
+  <label>
+    <input type="checkbox" name="person_ids[]" id="<%= p.id %>" value="<%= p.id %>">
+    <%= p.name %><br />
+  </label>
+<% end %>
+</p>
+
+<%= submit_tag 'View schedules' %>
+
+<% end %>

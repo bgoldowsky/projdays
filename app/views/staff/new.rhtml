@@ -1,0 +1,8 @@
+<h1>Create New Project</h1>
+
+<% form_for :project, :url => { :action => 'create' } do |form| %>
+  <%= error_messages_for 'project' %>
+  <%= render :partial => 'owners' %>
+  <%= render :partial => 'form' %>
+<% end %>
+<p><span class="cancel"><%= link_to 'Cancel changes', :action => :projects %></span></p>

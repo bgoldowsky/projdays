@@ -1,0 +1,56 @@
+<script language="javascript">
+$(document).ready(function() {
+	jQuery('#tbl').tableSorter({
+      sortClassAsc: 'sortUp',
+      sortClassDesc: 'sortDown'
+    });
+});
+</script>
+<h1>Classroom: <%= @classroom.name %></h1>
+
+<div class="blockcontrol">
+ <%= classroom_links %>
+</div>
+
+<p>
+<!-- <%= link_to 'Edit by code', :action => 'edit_list', :id=>@classroom %> | -->
+ <%= link_to 'Show requests', :action=>'show_requests', :id=>@classroom %> |
+ <%= link_to 'Printable view', :action=>'show_printable', :id=>@classroom %>
+</p>
+
+<table id="tbl">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Grade</th>
+      <% for t in @timeslots %>
+        <th><%= t.to_s %></th>
+      <% end %>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for p in @classroom.people %>
+      <tr>
+        <td><%= link_to p.name, :controller => 'people', :action => 'show', :id=>p  %></td>
+        <td><%= grade(p.grade) %></td>
+        <% for t in @timeslots %>
+          <td>
+            <% alist = p.assignments_for(t); if(!alist.empty?) %>
+              <% for a in alist %>
+                <%= link_to a.sess.project.display_name, {:controller=>'sesses', :action=>'assign', :id=>a, :timeslot=>t, :person=>p }, pop_opts %><br />
+              <% end %>
+            <% else %>
+              <%= link_to '_', {:controller=>'sesses', :action=>'assign', :timeslot=>t, :person=>p }, pop_opts %>
+            <% end %>
+          </td>
+        <% end %>
+        <td><%= p.email != nil ? link_to(p.email, "mailto:#{p.email}") : '' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to 'Edit classroom info', :action => 'edit', :id => @classroom %> | 
+  <%= link_to 'New person', :controller=>'people', :action=>'new', :id=>@classroom  %></p>

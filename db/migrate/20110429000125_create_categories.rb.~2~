@@ -1,0 +1,41 @@
+class CreateCategories < ActiveRecord::Migration
+  def self.up
+    create_table :categories do |t|
+      t.string :name, :null => false
+    end
+    c = Category.new
+    c.name = "Younger Kids"
+    c.save!
+    c = Category.new
+    c.name = "Older Kids"
+    c.save!
+    c = Category.new
+    c.name = "Sports"
+    c.save!
+    c = Category.new
+    c.name = "Science"
+    c.save!
+    c = Category.new
+    c.name = "Cooking"
+    c.save!
+    c = Category.new
+    c.name = "Sewing"
+    c.save!
+    c = Category.new
+    c.name = "Messy Crafts"
+    c.save!
+
+    create_table :catprefs do |t|
+      t.references :category, :null => false
+      t.references :person, :null => false
+      t.integer :value, :null => false
+    end
+    add_index :catprefs, :category_id
+    add_index :catprefs, :person_id
+  end
+
+  def self.down
+    drop_table :categories
+    drop_table :catprefs
+  end
+end

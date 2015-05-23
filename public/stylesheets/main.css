@@ -1,0 +1,212 @@
+body {
+  background: #FFFFDD;
+  color: #000000;
+  margin: 0px;
+}
+
+#header {
+  width: 100%;
+  background: #FFFFAA;
+  border-bottom: 1px solid #000;
+  margin: 0px 0px 5px 0px;
+}
+
+#header .logoleft {
+  float: left;
+  margin: 5px 10px 5px 5px;
+}
+
+#header .username {
+  float: right;
+  margin: 10px;
+  font-size: 140%;
+}
+
+#header ul {
+  display: inline;
+}
+
+#header li {
+  display: inline;
+  margin: 0px;
+  border: 1px solid black;
+  border-bottom: 1px;
+  border-radius: 6px 6px 0 0;
+  padding: 2px;
+  padding-bottom: 0px;
+  font-size: 105%;
+  font-weight: bold;
+}
+
+#header li.current {
+  background: #FFFFDD;
+  padding-bottom: 1px;
+  border-bottom: 0px;
+}
+
+#header li a {
+  text-decoration: none;
+  color: #0000EE;
+}
+
+#header li.other a:hover {
+  background: #FFAA22;
+}
+
+.headerdate {
+  font-size: 200%;
+}
+
+#content {
+  margin: 0px 10px 10px 10px;
+}
+
+h1 {
+  font-size: 140%;
+  font-family: serif;
+}
+
+h2 {
+  font-size: 110%;
+}
+
+#content p {
+  margin-left: 1em;
+}
+
+.info {
+  border: 1pt solid #0000FF;
+  background-color: #EEFFFF;
+  padding: .2em;
+  max-width: 50em;
+}
+
+.info p {
+  margin: .5em 1em;
+}
+
+.blockcontrol {
+  padding: 2px;
+  color: #0000FF;
+  float: right;
+}
+
+dd {
+  margin-bottom: 0.5em;
+}
+
+table {
+  border: 2px solid black;
+  border-collapse: collapse;
+}
+
+tr {
+  page-break-inside: avoid;
+}
+
+th {
+  border: 2px solid black;
+  padding: .2em;
+  background-color: #EEEEFF;
+  color: #000000;
+}
+
+th.sortUp, th.sortDown {
+  border-bottom: 3px solid black;
+}
+
+td {
+  border: 2px solid black;
+  padding: .2em;
+}
+
+td.num {
+  text-align: right;
+}
+
+td.nowrap {
+  white-space: nowrap;
+}
+
+td.main {
+  font-weight: bold;
+}
+
+.addlink {
+  background: #CCFFFF;
+}
+
+img {
+  border: 0px;
+}
+
+.formrow {
+  clear: both;
+  margin: 3px;
+}
+
+.formlabel {
+  clear: both;
+  margin: 3px;
+  float: left;
+  width: 15em;
+  background: #EEEEFF;
+  text-align: right;
+}
+
+.formitem {
+  float: left;
+  margin: 3px;
+  background: #EEEEFF;
+}
+
+.formlabel label {
+  display: block;
+  font: 110% bold;
+}
+
+.formlabeltext {
+  font: 90%;
+}
+
+.rank {
+  margin: 0px .2em;
+  padding: 0px .1em;
+  color: #FFFFFF;
+  background: #0000FF;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+.scheduled {
+  background: #80FF80;
+}
+
+.conflict {
+  background: #F49080;
+}
+
+.confirmed {
+  background: #FFFF00;
+}
+
+.over {
+  font-weight: bold;
+  color: red;
+}
+
+.under {  
+  font-weight: bold;
+  color: green;
+}
+
+.equal {
+  font-weight: bold;
+}
+
+.boxed {
+  width: 40em;
+  border: 1px solid black;
+  background-color: white;
+  padding: 1em;
+}

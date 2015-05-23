@@ -1,0 +1,27 @@
+<% for t in @timeslots %>
+  <h1><%= t.longdesc %></h1>
+  <table style="page-break-inside: avoid; page-break-after: always;">
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Location</th>
+        <th>Leaders</th>
+        <th>Helpers</th>
+        <th>Participants</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for s in @sessions %>
+        <% if s.project.real and s.timeslots.include? t and !s.assignments.empty? %>
+          <tr>
+            <td><%= s.project.name %></td>
+            <td><%= s.location ? s.location.name : 'NO LOCATION' %></td>
+            <td><%= s.leader_names.join('<br />') %></td>
+            <td><%= s.helper_names.join('<br />') %></td>
+            <td><%= s.participant_names_with_class.join('<br />') %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

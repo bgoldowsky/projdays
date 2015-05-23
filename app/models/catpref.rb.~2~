@@ -1,0 +1,5 @@
+class Catpref < ActiveRecord::Base
+  belongs_to :person
+  belongs_to :category
+  validates_presence_of :value
+end

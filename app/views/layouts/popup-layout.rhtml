@@ -1,0 +1,11 @@
+<html>
+<head>
+  <title>Project Days Popup: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold', :media=>'screen,print' %>
+  <%= stylesheet_link_tag 'main', :media=>'screen,print' %>
+</head>
+<body>
+<div style="color: green"><%= flash[:notice] %></div>
+<%= yield %>
+</body>
+</html>

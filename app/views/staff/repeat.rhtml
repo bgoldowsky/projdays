@@ -1,0 +1,10 @@
+<h1>Editing project</h1>
+
+<% form_for :project do |form| %>
+  <%= error_messages_for 'project' %>
+  <%= render :partial => 'owners' %>
+  <%= render :partial => 'form' %>
+<% end %>
+<p><span class="cancel"><%= link_to 'Cancel changes', :action => :projects %></span></p>
+
+

@@ -1,0 +1,8 @@
+<div style="float: right"><%= link_to 'Cancel/Back to list', :action => 'classroom', :id => @person.classroom %></div>
+<h1>Editing person</h1>
+
+<% form_tag :action => 'edit_person', :id => @person do %>
+  <%= render :partial => 'person' %>
+  <%= submit_tag 'Save changes' %>
+<% end %>
+

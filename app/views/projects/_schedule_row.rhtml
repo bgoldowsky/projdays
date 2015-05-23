@@ -1,0 +1,31 @@
+  <td class="nowrap">
+    <%= showrank(@r.rank) %>
+    <% if @r.person.schedule_to(@project) %>
+      <span class="scheduled">✔</span>
+    <% end %>
+  </td>
+  <td><%= @r.person.classroom.shortname %></td>
+  <td>
+    <%= link_to @r.person.name, :controller => 'people', :action => 'show', :id=>@r.person %>
+  </td>
+  <td><%= @r.role %></td>
+  <% for t in @timeslots %>
+    <td>
+      <% s = @project.sess_in_timeslot(t) %>
+      <% if (s) %>
+        <%= sess_sched_toggle(@r, s, @trid, t) %>
+      <% else %>
+        <%= @r.person.schedule_for(t) %>
+      <% end %>
+      <% if (@r.person.assignments_for(t).empty?) %>
+        (<%= link_to 'req', {:controller=>'sesses', :action=>'assign', :timeslot=>t, :person=>@r.person }, pop_opts %>)
+      <% end %>
+    </td>
+  <% end %>
+  <td>
+    <% link = url_for(:action=>'sched_refresh', :req=>@r, :trid=>@trid) %>
+    <a href="#" onclick="return update_tr('<%= @trid %>', '<%= link %>')">refresh</a>
+  </td>
+  <% if @note %>
+    <td><%= @note %></td>
+  <% end %>

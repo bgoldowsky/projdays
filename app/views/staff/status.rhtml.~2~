@@ -1,0 +1,51 @@
+<h1>Status</h1>
+
+<h2>Projects I Own</h2>
+
+<% if (@ownreqs == nil) %>
+
+<p>You don't currently "own" any projects!  Staff members are encouraged to own one or two projects.</p>
+
+<% else %>
+
+<p>These are the projects you've signed up as "owner".  Owning a
+project means...</p>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Owner(s)</th>
+  </tr>
+<% for r in @ownreqs %>
+  <tr>
+    <td><%= link_to r.project.name, :action=>'edit', :id=>r.project %></td>
+    <td><%= @user.name %></td>
+  </tr>
+<% end %>
+</table>
+
+<% end %>
+
+<p>Sign up to own a new project: either<br />
+  <span class="addlink"><%= link_to 'Create', :action => 'new' %></span>
+  to create a brand new project<br />
+  <span class="addlink"><%= link_to 'Revive' %></span>
+  to view history of previous years' projects, and choose one to adopt.
+</p>
+
+<h2>Other Projects</h2>
+
+<p>Other projects for this year:</p>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Owner(s)</th>
+  </tr>
+<% for project in @projects %>
+  <tr>
+    <td><%= link_to project.name, :action=>'edit', :id=>project %></td>
+    <td><%= project.leader_requests_str %> (become co-owner?)</td>
+  </tr>
+<% end %>
+</table>

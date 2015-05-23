@@ -1,0 +1,11 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to list', :action => 'reviews' %>
+</div>
+
+<h1>General Notes</h1>
+
+<p>Everyone's notes for the year</p>
+<% form_for :note do |f| %>
+  <%= f.text_area :text, :cols=>60, :rows=>20 %><br />
+  <%= submit_tag 'Save' %>
+<% end %>

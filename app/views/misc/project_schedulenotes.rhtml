@@ -1,0 +1,8 @@
+<h1>Projects With Scheduling Notes:</h1>
+
+<dl>
+  <% for p in @projects %>
+    <dt><strong><%= p.display_name %></strong></dt>
+    <dd><%= p.schedulenotes %></dd>
+  <% end %>
+</dl>

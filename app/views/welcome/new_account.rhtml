@@ -1,0 +1,49 @@
+<div style="float: right">
+  <%= link_to 'Cancel', :action => 'index' %>
+</div>
+<br clear="all"/>
+
+<fieldset>
+  <legend>Create Account</legend>
+
+  <% form_for :person do |form| %>
+
+    <%= error_messages_for 'person' %>
+
+    <div class="formrow">
+      <label class="formlabel" for="name">Your name:</label>
+      <div class="formitem">
+        <%= form.text_field 'name', :size=>25 %>
+      </div>
+    </div>
+
+    <div class="formrow">
+      <label class="formlabel" for="name">Email address:</label>
+      <div class="formitem">
+        <%= form.text_field 'email', :size=>25 %>
+      </div>
+    </div>
+
+    <div class="formrow">
+      <label class="formlabel" for="name">Choose a password:</label>
+      <div class="formitem">
+        <%= form.password_field 'password', :size=>25 %>
+      </div>
+    </div>
+
+    <div class="formrow">
+      <label class="formlabel" for="name">Re-type password:</label>
+      <div class="formitem">
+        <%= form.password_field "password_confirmation", :size=>25 %>
+      </div>
+    </div>
+
+    <div class="formrow">
+      <div class="formitem">
+        <%= submit_tag "Create account" %>
+      </div>
+    </div>
+
+  <% end %>
+
+</fieldset>

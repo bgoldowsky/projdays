@@ -1,0 +1,22 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to list', :action => 'reviews' %>
+</div>
+
+<h1><%= @project.name %></h1>
+
+<p class="info">
+  <strong>Short name: </strong><%=h @project.shortname %><br />
+  <strong>Grades: </strong><%= grade_range(@project) %><br />
+  <strong>Max students per session: </strong><%=h @project.capacity %><br />
+  <strong>Description:</strong><br />
+  <%=h @project.description %><br />
+  <strong>Notes:</strong><br />
+  <%=h @project.notes %><br />
+</p>
+
+<h2>Notes for next time:</h2>
+<p>(Including your notes and the notes of other project leaders/participants)</p>
+<% form_for :project do |f| %>
+  <%= f.text_area :review, :cols=>60, :rows=>10 %><br />
+  <%= submit_tag 'Save' %>
+<% end %>

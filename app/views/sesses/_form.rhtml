@@ -1,0 +1,21 @@
+<%= error_messages_for 'sess' %>
+
+<p><label><strong>Location:</strong>
+  <%= select 'sess', 'location_id',
+  Location.list.collect{|x|[x.name,x.id]},
+  { :include_blank => 'No location' } %>
+</label></p>
+
+<p><strong>Times:</strong>
+<% for time in @timeslots %>
+  <br />
+  <label style="margin-left: 2em;">
+   <input type="checkbox" id="<%= time.id %>" name="time_ids[]" value="<%=time.id %>"
+     <%if @sess.timeslots.include? time%>checked="checked"<%end%> />
+     <%= time.longdesc %>
+   </label>
+<% end %>
+</p>
+<!--[form:session]-->
+<!--[eoform:session]-->
+

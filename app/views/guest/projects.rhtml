@@ -1,0 +1,21 @@
+<div style="float: right"><%= link_to 'back', :action=>:index %></div>
+<h1><%= @year %> Project List</h1>
+
+<table>
+ <thead>
+   <tr>
+     <th>Name</th>
+     <th>Project Description</th>
+     <th>Grades</th>
+   </tr>
+ </thead>
+ <tbody>  
+  <% for project in @projects %>
+  <tr>
+    <td><%=h project.name %></td>
+    <td><%=h project.description %></td>
+    <td><%=h grade_range(project) %></td>
+  </tr>
+ <% end %>
+ </tbody>
+</table>

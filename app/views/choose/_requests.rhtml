@@ -1,0 +1,38 @@
+<table width="90%">
+  <tr>
+    <th>#</th>
+    <th>Project Choices</th>
+    <th> </th>
+    <% if(@person.unit?) %><th> </th><% end %>
+  </tr>
+  <% for c in @person.requests %>
+    <tr>
+	  <td><strong><%=h c.rank %></strong></td>
+      <td><%=h c.project.name %></td>
+      <% if(@person.unit?) %>
+        <td><%=h c.role %></td>
+      <% end %>
+      <td>
+        <span class="minorlink">
+          <%= link_to '[remove]', :action=>'removechoice', :id=>@person.id, :request=>c.id %>
+        </span><span class="minorlink">
+          <a href="#" onclick="return show('req<%=c.id%>');">[move]</a>
+        </span>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<% for c in @person.requests %>
+  <% form_tag '/choose/reorder' do %>
+     <div class="moveform" id="req<%=c.id%>">
+        <%= hidden_field_tag 'id', c.id %>
+        Move <%=h c.project.name %> to position:
+        <%= select :req, :rank, @person.requests.reject{|r|r.rank==1||r==c||r.rank==c.rank+1}.map{|r| ["above #{r.project.name}", r.rank]}.push(["last position",@person.requests.length+1]).unshift(["first position",1]) %>
+        <%= submit_tag 'move' %>
+        <span class="minorlink">
+          <a href="#" onclick="hide('req<%=c.id%>')">cancel</a>
+        </span>
+     </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,66 @@
+<script language="javascript">
+$(document).ready(function() {
+	jQuery('#tbl').tableSorter({
+      sortClassAsc: 'sortUp',
+      sortClassDesc: 'sortDown'
+    });
+});
+
+</script>
+<div class="blockcontrol">
+  <%= link_to 'Back to project list', :action => 'fullness' %>
+</div>
+
+<h1><%= @project.name %></h1>
+
+<p>
+  <%= link_to 'Main project page', :action=>'show', :id=>@project %>
+</p>
+
+<table id="tbl">
+  <thead>
+    <tr>
+      <th class="sortDown">Req</th>
+      <th>Class</th>
+      <th>Name</th>
+      <th>Role</th>
+      <% for s in @timeslots %>
+        <th><%= s %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="10"><strong>Leaders</strong></td></tr>
+    <% for @r in @project.leader_requests %>
+      <% @trid = "tr#{@r.id}" %>
+      <tr id="<%= @trid %>">
+      <%= render :partial=>'schedule_row' %>
+      </tr>
+    <% end %>
+
+    <tr><td colspan="10"><strong>Helpers</strong></td></tr>
+    <% for @r in @project.helper_requests %>
+      <% @trid = "tr#{@r.id}" %>
+      <tr id="<%= @trid %>">
+      <%= render :partial=>'schedule_row' %>
+      </tr>
+    <% end %>
+
+    <tr><td colspan="10"><strong>Kindergarten</strong></td></tr>
+    <% for @r in @project.participant_requests.reject{|r|r.person.grade>0} %>
+      <% @trid = "tr#{@r.id}" %>
+      <tr id="<%= @trid %>">
+      <%= render :partial=>'schedule_row' %>
+      </tr>
+    <% end %>
+
+    <tr><td colspan="10"><strong>Participants</strong></td></tr>
+    <% for @r in @project.participant_requests.reject{|r|r.person.grade==0} %>
+      <% @trid = "tr#{@r.id}" %>
+      <tr id="<%= @trid %>">
+      <%= render :partial=>'schedule_row' %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

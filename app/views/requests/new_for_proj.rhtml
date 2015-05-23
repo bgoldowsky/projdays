@@ -1,0 +1,19 @@
+<h1>New request</h1>
+
+<div style="float: right"><%= link_to 'Cancel/Back to project', :controller=>'projects', :action=>'show_requests', :id => @req.project %></div>
+
+<% form_for :req do |form| %>
+  <div class="formrow">
+    <div class="formlabel">
+      <label for="req_person">Person (choose one)</label>
+    </div>
+    <div class="formitem">
+      Teacher: <%= teacher_select :teacher, :id %>
+      Parent:  <%= parent_select :parent, :id %>
+      Unit:    <%= unit_select :unit, :id %>
+    </div>
+  </div>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Create" %>
+<% end %>
+

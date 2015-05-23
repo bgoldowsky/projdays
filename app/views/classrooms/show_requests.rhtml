@@ -1,0 +1,55 @@
+<script language="javascript">
+$(document).ready(function() {
+	jQuery('#tbl').tableSorter({
+      sortClassAsc: 'sortUp',
+      sortClassDesc: 'sortDown'
+    });
+});
+</script>
+<h1>Classroom: <%= @classroom.name %></h1>
+
+<div class="blockcontrol">
+ <%= classroom_links(:show_requests) %>
+</div>
+
+<p>
+ <%= link_to 'Show Assignments', :action =>'show', :id=>@classroom %>
+</p>
+
+<table id="tbl">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Grade</th>
+      <% for i in 1..@maxrank %>
+        <th><%= showrank(i) %></th>
+      <% end %>
+      <% if @showprefs %>
+        <th>YES</th><th>Okay</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% for p in @classroom.people %>
+      <tr>
+        <td><%= link_to p.name, :controller => 'people', :action => 'show', :id=>p  %></td>
+        <td><%= grade(p.grade) %></td>
+        <% for i in 1..@maxrank %>
+          <td>
+            <% for r in p.requests.reject{|r| r.rank!=i} %>
+              <% cls = (p.schedule_to(r.project) ? 'scheduled' : 'unsched') %>
+              <span class="<%=cls%>">
+                <%= r.project.display_name + (r.role!='P' ? " (#{r.role})" : "")%>
+              </span>
+            <% end %>
+          </td>
+        <% end %>
+        <% if @showprefs %>
+          <td><%= p.catprefs_with_value_string(1) %></td>
+          <td><%= p.catprefs_with_value_string(2) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

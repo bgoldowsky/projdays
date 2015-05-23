@@ -1,0 +1,15 @@
+<h1>People With The Same Thing Twice:</h1>
+
+<dl>
+  <% for d in @dups %>
+    <dt>
+      <strong>
+        <%= link_to d[0].person.name, :controller=>'people', :action=>'show', :id=>d[0].person %>
+      </strong>
+      (<%= d[0].person.classroom.shortname %>/<%= grade(d[0].person.grade) %>)</dt>
+    <dd>
+      <%= d[0].sess.project.display_name %>:
+      <%= d[0].sess.to_s + d[0].role %> and <%= d[1].sess.to_s + d[1].role %>
+    </dd>
+  <% end %>
+</dl>

@@ -1,0 +1,73 @@
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_name">Title</label>
+    Name of the project<br />(ideally 2-4 words)
+  </div>
+  <div class="formitem">
+    <%= text_field 'project', 'name', :size => 50  %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_description">Description</label>
+    Brief project description that kids will read in order to make
+    project choices.  Be sure to include any special skills or
+    equipment they will need.
+  </div>
+  <div class="formitem">
+    <%= text_area 'project', 'description', :cols => 60, :rows => 10  %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_mingrade">Age Level</label>
+    This project is appropriate for what ages?
+  </div>
+  <div class="formitem">
+    <%= grade_select(:project, :mingrade) %> (Minimum)<br />
+    <%= grade_select(:project, :maxgrade) %> (Maximum)
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_capacity">Capacity</label>
+    How many students can participate in each session of this
+    project?<br />
+    Ideally 8 per adult.
+  </div>
+  <div class="formitem">
+    <%= text_field 'project', 'capacity', :size => 5  %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_notes">Project Notes</label>
+    Special equipment or location information that Project Days
+    coordinator needs to know about (eg "Needs a sink").
+    Not shown in project list for students.
+  </div>
+  <div class="formitem">
+    <%= text_area 'project', 'notes', :cols => 60, :rows => 10  %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_description">Scheduling notes</label>
+    List any constraints or preferences on when this project can happen.
+  </div>
+  <div class="formitem">
+    <%= text_area 'project', 'schedulenotes', :cols => 60, :rows => 5  %>
+  </div>
+</div>
+
+<br clear="all"/>
+
+<%= submit_tag 'Save' %>
+
+<!--[eoform:project]-->
+

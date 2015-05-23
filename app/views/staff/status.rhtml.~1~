@@ -1,0 +1,22 @@
+<h1>Status</h1>
+
+<h2>Projects I Own</h2>
+
+<p>These are the projects you've signed up as "owner".  Owning a
+project means...</p>
+
+<p><%= link_to 'Add projects to own', :action=>'projects' %></p>
+
+<h2>Projects to Lead</h2>
+
+<p>These are the projects where you would be willing to lead one or
+more sessions.</p>
+
+<p><%= link_to 'Choose projects to lead', :action=>'projects' %></p>
+
+<h2>Projects to Help With</h2>
+
+<p>These are the projects you're willing to be a helper for...</p>
+
+<p><%= link_to 'Choose projects to help with', :action=>'projects' %></p>
+

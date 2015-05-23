@@ -1,0 +1,14 @@
+<h1>People With Notes:</h1>
+
+<% for c in @classrooms %>
+  <% clist = @people.reject{|p|p.classroom != c} %>
+  <% if !clist.empty? %>
+    <h2><%=h c.name %></h2>
+    <dl style="margin-left: 2em;">
+      <% for p in clist %>
+        <dt><strong><%= p.name %></strong></dt>
+        <dd><%= p.notes %></dd>
+      <% end %>
+    </dl>
+  <% end %>
+<% end %>

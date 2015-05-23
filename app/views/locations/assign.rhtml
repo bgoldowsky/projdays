@@ -1,0 +1,23 @@
+<h1>Assign location for <%= @s.project.display_name %> <%= @s %></h1>
+
+<% form_tag :action=>'assign', :method=>"get" do %>
+
+<% if @multi %>
+  <p><label><%= check_box_tag( 'all', 1, @all) %> move all sessions</p>
+<% end %>
+
+<p>
+  <label>
+    <%= radio_button_tag 'loc', 0, @s.location==nil, :onclick=>"this.form.submit();" %>
+    <em>No location</em>
+  </label><br />
+  <% for loc in Location.list %>
+    <label>
+      <%= radio_button_tag 'loc', loc.id, @s.location==loc, :onclick=>"this.form.submit();"  %>
+      <%=h loc.name %>
+    </label>
+    <br />
+  <% end %>
+</p>
+<%= submit_tag 'Save' %>
+<% end %>

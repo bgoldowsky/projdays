@@ -1,0 +1,13 @@
+<h1>New Year Setup</h1>
+
+<h2>Clear out the database for a new year</h2>
+
+<p>This will copy all current projects and scheduling information into
+the "history" database, then <strong>delete</strong> lists of
+projects, students, and other information to make ready for a new
+year. <strong>Once done this cannot be reversed</strong>.</p>
+
+<p><%= button_to "I am sure! Delete all last year's information now", :action=>'clear_db' %></p>
+
+<p><%= link_to 'Cancel / Go back', :action=>'list' %></p>
+

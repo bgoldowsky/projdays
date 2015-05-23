@@ -1,0 +1,10 @@
+<p class="blockcontrol">
+  <%= link_to 'Back to list', :action=>'reviews' %>
+</p>
+
+<h1>Project Days Notes: <%= @note.year %></h1>
+
+<div class="boxed">
+  <%= simple_format(@note.text) %>
+</div>
+

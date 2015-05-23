@@ -1,0 +1,11 @@
+<h1>Preferences</h1>
+
+<table>
+  <% for cat in @cats %>
+   <tr>
+     <td><%=h cat.name %></td>
+     <td>...</td>
+   </tr>
+ <% end %>
+</table>
+

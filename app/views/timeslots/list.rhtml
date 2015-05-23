@@ -1,0 +1,24 @@
+<h1>Listing timeslots</h1>
+
+<table>
+ <thead>
+  <tr>
+    <th>ID</th><th>Day</th><th>Time</th>
+    <th colspan="2">Actions</th>
+  </tr>
+ </thead>
+ <tbody>
+  <% for timeslot in @timeslots %>
+   <tr>
+    <td class="main"><%=h timeslot %></td>
+    <td><%=h timeslot.day %></td>
+    <td><%=h "#{timeslot.start} - #{timeslot.stop}" %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => timeslot %></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => timeslot }, :confirm => 'Are you sure?', :method => 'post' %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New timeslot', :action => 'new' %>

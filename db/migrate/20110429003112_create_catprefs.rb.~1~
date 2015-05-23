@@ -1,0 +1,12 @@
+class CreateCatprefs < ActiveRecord::Migration
+  def self.up
+    create_table :catprefs do |t|
+
+      t.timestamps
+    end
+  end
+
+  def self.down
+    drop_table :catprefs
+  end
+end

@@ -1,0 +1,32 @@
+<h1>Set email address</h1>
+
+<% form_for :user do |form| %>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label>Name</label>
+  </div>
+  <div class="formitem">
+    <%=h @user.name %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="email">Email address</label>
+  </div>
+  <div class="formitem">
+    <%= form.text_field 'email' %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+  </div>
+  <div class="formitem">
+    <%= form.submit 'Save' %>
+  </div>
+</div>
+
+<% end %>
+

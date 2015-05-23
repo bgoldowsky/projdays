@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>Project Days Admin: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'main', :media=>'screen,print' %>
+  <%= stylesheet_link_tag 'scaffold', :media=>'screen,print' %>
+  <%= stylesheet_link_tag 'print', :media=>'print' %>
+  <%= javascript_include_tag 'functions' %>
+  <%= javascript_include_tag 'jquery' %>
+  <%= javascript_include_tag 'jquery.tablesorter.js' %>
+</head>
+<body>
+<div id="header">
+  <div class="logoleft">     
+    <%= link_to(image_tag("pd-logo.png", :alt=>'Project Days'), :controller=>'projects', :action=>'index') %>
+  </div>
+  <div class="username">
+    Admin - <a href="/welcome/logout">[logout]</a>
+  </div>
+  <br clear="right"/>
+  <ul>
+   <%= tab "Projects",     "Projects",      :controller => "projects", :action => "fullness" %>
+   <%= tab "People/Groups","People/Groups", :controller => "classrooms", :action => "list" %>
+   <%= tab "Locations",    "Locations",     :controller => "locations", :action => "list" %>
+   <%= tab "Timeslots",    "Timeslots",     :controller => "timeslots", :action => "list" %>
+   <%= tab "Etc",          "Etc",           :controller => "misc", :action => "list" %>
+  </ul>
+</div>
+<div id="content">
+  <p style="color: green"><%= flash[:notice] %></p>
+  <%= yield :layout %>
+</div>
+</body>
+</html>

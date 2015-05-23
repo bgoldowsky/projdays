@@ -1,0 +1,10 @@
+<span class="blockcontrol">
+  <%= link_to 'Back to person', :controller=>'people', :action=>'show', :id=>@req.person %>
+</span>
+
+<h1>Editing request for <%=h @req.person.name %></h1>
+
+<% form_for :req do |form| %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Update" %>
+<% end %>

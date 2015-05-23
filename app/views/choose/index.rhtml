@@ -1,0 +1,7 @@
+<h1>Which class are you in?</h1>
+
+<div class="chooselist">
+<% for classroom in @classrooms %>
+  <p><%= link_to classroom.name, :action=>'list', :id=>classroom %></p>
+<% end %>
+</div>

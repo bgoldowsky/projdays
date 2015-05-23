@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>Project Day Choices: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'scaffold' %>
+  <%= stylesheet_link_tag 'choose' %>
+</head>
+<body>
+<div id="header">
+  <div class="logoleft">
+    <% if(@person) %>
+      <%= link_to(image_tag("pd-logo.png", :alt=>'Project Days'), :action=>'list', :id=>@person.classroom) %>
+    <% else %>
+      <%= link_to(image_tag("pd-logo.png", :alt=>'Project Days'), :action=>'index') %>
+    <% end %>
+  </div>
+  <div class="username">
+    <%=h @person ? @person.name : '' %>
+  </div>
+  <br clear="all"/>
+</div>
+
+<div id="content">
+  <%= yield :layout %>
+</div>
+</body>
+</html>

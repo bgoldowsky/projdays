@@ -1,0 +1,29 @@
+<p style="margin: 0 0 20px 20px">
+<%= image_tag 'pd-logo.png', :alt=>'Project Days', :style=>"position: relative; bottom: -13px;" %>
+<span class="headerdate">
+  <%= this_year %>:
+  <% if @grade>=0 %>
+    Projects for grade <%= grade(@grade) %>
+  <% else %>
+    All Projects
+  <% end %>
+</span>
+</p>
+<table>
+ <thead>
+   <tr>
+     <th>Name</th>
+     <th>Project Description</th>
+     <th>Grades</th>
+   </tr>
+ </thead>
+ <tbody>  
+  <% for project in @projects %>
+  <tr>
+    <td><%=h project.name %></td>
+    <td><%=h project.description %></td>
+    <td><%=h grade_range(project) %></td>
+  </tr>
+ <% end %>
+ </tbody>
+</table>

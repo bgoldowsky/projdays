@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <title>Project Days: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag 'main', :media=>'screen,print' %>
+  <%= stylesheet_link_tag 'scaffold', :media=>'screen,print' %>
+</head>
+<body>
+  <div id="header">
+    <div class="logoleft">
+      <%= link_to(image_tag("pd-logo.png", :alt=>'Project Days'), :action=>'index') %>
+    </div>
+    <div class="username">
+     <% if(@current_user) %>
+       <%=h @current_user.name %>
+       &ndash; <a href="/welcome/logout">[logout]</a>
+     <% end %>
+    </div>
+    <br clear="right"/>
+    <ul>
+      <%= tab "Projects", "Projects", :action=>'projects' %>
+      <% if (@current_user.teacher? && (@can_see_sched||@can_edit_people)) %>
+        <%= tab "Class Lists", "Class Lists", :action=>'classroom', :id=>@current_user.classroom %>
+      <% end %>
+      <% if (@current_user.adult?) %>
+        <%= tab "My Schedule", "My Preferences", :action=>'schedule' %>
+      <% end %>
+      <% if (@current_user.teacher?) %>
+        <%= tab "Reviews", "Reviews", :action=>'reviews' %>
+      <% end %>
+      <%= tab "FAQ", "FAQ", :action =>'faq'%>
+    </ul>
+  </div>
+  <div id="content">
+    <p style="color: green"><%= flash[:notice] %></p>
+    <%= yield :layout %>
+  </div>
+</body>
+</html>

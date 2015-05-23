@@ -1,0 +1,8 @@
+<h1>Projects by Grade</h1>
+
+<% for g in Person.studentgrades %>
+  <p>
+    <strong><%= grade(g) %>:</strong>
+    <%= link_to "#{@projects.reject{|p| !p.ok_for_grade?(g)}.length} projects", :controller=>'projects', :action=>'printable', :id=>g %>
+  </p>
+<% end %>

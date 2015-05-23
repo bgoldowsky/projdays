@@ -1,0 +1,8 @@
+<h1>Editing project</h1>
+
+<% form_for :project do |form| %>
+  <%= error_messages_for 'project' %>
+  <%= render :partial => 'form' %>
+<% end %>
+
+

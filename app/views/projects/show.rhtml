@@ -1,0 +1,97 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to project list', :action => 'fullness' %>
+</div>
+
+<h1><%= @project.name %></h1>
+
+<div class="info">
+  <span class="blockcontrol">
+    <%= link_to 'Edit this project', :action => 'edit', :id=>@project %><br />
+    <%= link_to 'Merge with...', :action=>'merge', :id=>@project %><br />
+    <%= link_to 'History', :action=>'history', :id=>@project %><br />
+    <%= button_to 'Delete this project', {:action => 'destroy', :id=>@project}, :confirm=>'Really destroy project?  Are you sure it has no interesting history?' %>
+  </span>  
+  <p><strong>Short name: </strong><%=h @project.shortname %></p>
+  <p><strong>Grades: </strong><%= grade_range(@project) %></p>
+  <p><strong>Max students per session: </strong><%=h @project.capacity %></p>
+
+  <p><strong>Description:</strong><br />
+  <%=h @project.description %></p>
+
+  <p><strong>Notes:</strong><br />
+  <%=h @project.notes %></p>
+
+  <p><strong>Scheduling notes:</strong><br />
+  <%=h @project.schedulenotes %></p>
+
+  <p><strong>Reviews:</strong><br />
+  <%=h @project.review %></p>
+</div>
+
+<p><%= link_to 'Scheduling grid', :action=>'schedule', :id=>@project %></p>
+
+<a name="sessions"/>
+<h2>Sessions</h2>
+<table>
+  <tr><!-- header -->
+    <th></th>
+    <% for s in @sesslist %>
+	  <th><%= link_to s, :controller=>'sesses', :action=>'show', :id=>s%></th>
+	<% end %>
+  </tr>
+  <tr><!-- Confirmations -->
+    <td>Confirmed?</td>
+    <% for s in @sesslist %>
+      <td <%= s.confirmed ? 'class="confirmed"' : ''%>>
+        <% if s.confirmed %>
+          <%= link_to('yes', :action=>'unconfirm_sess', :id=>s) %>
+        <% else %>
+          <%= link_to('no', :action=>'confirm_sess', :id=>s) %>
+        <% end %>
+      </td>
+	<% end %>
+  </tr>
+  <tr><!-- locations -->
+    <td>Location:</td>
+    <% for s in @sesslist %>
+	  <td><%= link_to s.location_name, {:controller=>'locations', :action=>'assign', :id=>s}, pop_opts() %></td>
+	<% end %>
+  </tr>
+  <tr><!-- leaders -->
+    <td>Leaders:</td>
+    <% for s in @sesslist %>
+	  <td><%= s.names_with_class('L').join('<br/> ') %></td>
+	<% end %>
+  </tr>
+  <tr><!-- helpers -->
+    <td>Helpers:</td>
+    <% for s in @sesslist %>
+	  <td><%= s.names_with_class('H').join('<br/> ') %></td>
+	<% end %>
+  </tr>
+  <tr><!-- students -->
+    <td>Participants:</td>
+    <% for s in @sesslist %>
+	  <td><%= s.participant_names_with_class.join('<br/> ') %></td>
+	<% end %>
+  </tr>
+  <tr><!-- counts -->
+    <td></td>
+    <% for s in @sesslist %>
+	  <td><%= s.student_count %></td>
+	<% end %>
+  </tr>
+  <tr>
+    <td></td>
+    <% for s in @sesslist %>
+      <td><% if(s.timeslots.length>1) %>
+            <%= link_to('Split sessions', :action=>'split_sess', :id=>s) %>
+            <br />
+          <% end %>
+          <%= link_to('Delete', {:action=>'destroy_sess', :id=>s}, :confirm=>'Really delete session, including information on people assigned to it?', :method=>'POST') %>
+      </td>
+    <% end %>
+  </tr>                
+</table>
+
+<%= link_to 'Add session', {:action=>'new_sess', :id=>@project.id}  %>

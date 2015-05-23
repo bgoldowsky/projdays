@@ -1,0 +1,54 @@
+<script type="text/javascript">
+function show(id) {
+  document.getElementById(id).style.display='block';
+  return false;
+}
+function hide(id) {
+  document.getElementById(id).style.display='none';
+  return false;
+}  
+</script>
+<div class="column">
+  <% if not @person.requests.empty? %>
+    <div class="choices">
+      <%= render :partial => 'requests' %>
+      <p style="color: green"><%= flash[:notice] %></p>
+    </div>
+  <% else %>
+    <p>Make your first choice from the list...</p>
+  <% end %>
+</div>
+
+<div class="projlist">
+  <% if @person.requests.length < @person.max_choices %>
+    <% if (@person.unit?) %>
+      <p>Click the appropriate letter to choose a project:<br />
+        <strong>P</strong> = participant,
+        <strong>H</strong> = helper
+      </p>
+    <% end %>
+    <% for p in @projects %>
+      <% if(! @requested_projects.include?(p))  %>
+        <div class="request">
+          <% if (@person.unit?) %>
+            <%= link_to 'P', :action=>'addchoice', :id=>@person, :project=>p, :role=>'P' %>
+            <%= link_to 'H', :action=>'addchoice', :id=>@person, :project=>p, :role=>'H' %>
+          <% else %>
+            <%= link_to '[choose]', :action=>'addchoice', :id=>@person, :project=>p, :role=>'P' %>
+          <% end %>
+          <%=h p.name %>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>Choices complete.  You can re-order the list, remove some and make different choices, or click "done"</p>
+    <h2>Anything else we should know?</h2>
+    <% form_tag '/choose/savenote' do %>
+      <%= hidden_field_tag 'id', @person.id %>
+      <%= text_area_tag 'notes', nil, :size=>"40x10" %>
+      <%= submit_tag 'done' %>
+    <% end %>
+  <% end %>
+</div>
+
+

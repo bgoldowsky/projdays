@@ -1,0 +1,91 @@
+<% if @can_edit %>
+<!--
+  <p>Here you can view the <%= Date.today.year %> projects and add your own:</p>
+  <ul>
+    <li>Click a project name to view or edit information about it</li>
+    <li>Click "[add me]" to list yourself as interested in leading an
+    existing project</li>
+    <li>Click "New Project" to create a listing for a project you'd like
+    to lead</li>
+  </ul>
+  <h2>Add your own project</h2>
+  <p>
+   <span class="addlink"><%= link_to 'New project', :action => 'new' %></span>
+  </p>
+-->
+<h2>Project Submissions</h2>
+<p>By offering a project, you become its <strong>owner</strong>.
+Owning a project means you are the point person who will get materials
+organized before project days.  You get to lead the project and/or
+give instructions to other leaders.</p>
+
+<p>To offer a project click one of these options:
+ <ul>
+  <li><span class="addlink"><%= link_to 'Create:', :action => 'new' %></span>
+    invent a brand new project</li>
+  <li><span class="addlink"><%= link_to 'Revive:', :action => 'history' %></span>
+    browse the history of previous years' projects, and choose one
+to make your own.
+ </ul>
+</p>
+
+<% end %>
+
+<% if !@can_edit %>
+  <div class="blockcontrol">
+    Printable view: for grade 
+    <%= link_to 'K', :action=>'printable', :id=>0 %>
+    <%= link_to '1', :action=>'printable', :id=>1 %>
+    <%= link_to '2', :action=>'printable', :id=>2 %>
+    <%= link_to '3', :action=>'printable', :id=>3 %>
+    <%= link_to '4', :action=>'printable', :id=>4 %>
+    <%= link_to '5', :action=>'printable', :id=>5 %>
+    <%= link_to '6', :action=>'printable', :id=>6 %>
+    <%= link_to 'All', :action=>'printable', :id=>-1 %>
+  </div>
+<% end %>
+
+<h2><%= Date.today.year %> Projects</h2>
+
+<p>Here is the current list of projects.
+<% if @can_edit %>
+Popular projects may require
+more sessions than the owner can run.  If you would like to offer to
+lead additional sessions, click 'add me'.
+<% end %>
+</p>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Grades</th>
+    <% if @can_edit %>
+      <th>Owner(s)</th>
+      <th>Other Potential Leaders</th>
+    <% end %>
+  </tr>
+  
+<% for project in @projects %>
+  <tr>
+    <td>
+      <% if @can_edit %>
+        <%= link_to project.name, :action=>'edit', :id=>project %>
+      <% else %>
+        <%= link_to project.name, :action=>'show_proj', :id=>project %>
+      <% end %>
+    </td>
+    <td><%= grade_range(project) %></td>
+    <% if @can_edit %>
+      <td>
+        <%= project.owner_requests_str %>
+      </td>
+      <td>
+        <%= project.leader_requests_str(true) %>
+        [<%= link_to 'add me', :action=>'add_me', :id=>project %>]
+      </td>
+   <% else %>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+

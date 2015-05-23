@@ -1,0 +1,32 @@
+<h1>Schedule for <%=h @person.name %></h1>
+
+<% for t in @timeslots %>
+  <% alist = @person.assignments_for(t) %>
+  <table style="width: 15%; float: left; margin-left: 1%; font-size: 75%; page-break-inside: avoid;">
+    <tr><th colspan="2"><%= t.longdesc %></th></tr>
+    <% if alist.length == 0 %>
+      <tr><td colspan="2"><em>Nothing</em></td></tr>
+    <% elsif alist.length > 1 %>
+      <tr><td colspan="2"><em>Multiple assignments</em></td></tr>
+    <% else %>
+      <% a = alist.first %>
+      <% if  !a.sess.project.real %>
+        <tr><td colspan="2"><em><%= alist.first.sess.project.name %></em></td></tr>
+      <% else %>
+        <tr><td align="center" colspan="2"><strong><%= a.sess.project.name %></strong></td></tr>
+        <tr><td align="center" colspan="2"><strong><%= a.sess.location ? a.sess.location.name : 'NO LOCATION' %></strong></td></tr>
+        <tr><td>L</td><td><%= a.sess.leader_names.join('<br />') %></td></tr>
+        <% helps=a.sess.helper_names; if !helps.empty? %>
+          <tr><td>H</td><td><%= helps.join('<br />') %></td></tr>
+        <% end %>
+        <tr><td colspan="2"><%= a.sess.participant_names_with_class.join('<br />') %></td></tr>
+      <% end %>
+    <% end %>
+  </table>
+<% end %>
+
+<br clear="all" />
+
+<p>
+<%= link_to 'Edit availability', :action=>'available' %>
+</p>

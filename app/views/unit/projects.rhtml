@@ -1,0 +1,27 @@
+<h1>Unit Main Page</h1>
+<p>Here you can suggest projects you would like to run.</p>
+
+<h2>Suggest a new project</h2>
+<p>
+ <span class="addlink"><%= link_to 'New project', :action => 'new' %></span>
+</p>
+
+<% if not @projects.empty? %>
+  <h2>Previous suggestions</h2>
+  <table>
+    <tr>
+    <% for column in [ 'name', 'grades' ] %>
+      <th><%= column %></th>
+    <% end %>
+    </tr>
+
+  <% for project in @projects %>
+    <tr>
+      <td><%= link_to project.name, :action=>'edit', :id=>project %></td>
+      <td><%= grade_range(project) %></td>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+<br />
+

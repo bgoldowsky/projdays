@@ -1,0 +1,82 @@
+<h1><%=h @person.name %></h1>
+<p class="info" style="min-height: 3em">
+  <span class="blockcontrol">
+    <%= link_to 'Edit info', :action => 'edit', :id => @person %><br />
+    <%= link_to 'Edit availability', :action=>'available', :id=>@person %><br />
+    <% if (@person.requests.empty? and @person.assignments.empty?) %>
+      <%= button_to 'Delete person', :action => 'destroy', :id => @person %>
+    <% end %>
+  </span>
+  <strong>Classroom: </strong>
+  <%= link_to @person.classroom.name, :controller=>'classrooms', :action=>'show', :id=>@person.classroom %><br />
+  <strong>Grade: </strong>
+  <%=h grade(@person.grade) %><br />
+  <% if(not @person.email.blank?) %>
+    <strong>Email: </strong>
+    <%=h @person.email %><br />
+  <% end %>
+  <% if(not @person.notes.blank?) %>
+    <strong>Notes: </strong>
+    <%=h @person.notes %><br />
+  <% end %>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+	  <% for t in @timeslots %>
+	    <th><%= t.to_s %></th>
+	  <% end %>
+	</tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Signed up for:</strong></td>
+	  <% for t in @timeslots %>
+	    <td>
+          <% alist = @person.assignments_for(t); if(!alist.empty?) %>
+             <% for a in alist %>
+               <%= link_to a.sess.project.display_name+' ('+a.role+')', {:controller=>'sesses', :action=>'assign', :id=>a, :timeslot=>t, :person=>@person }, pop_opts() %><br />
+              <% end %>
+            <% else %>
+              <%= link_to '_', {:controller=>'sesses', :action=>'assign', :timeslot=>t, :person=>@person }, pop_opts() %>
+            <% end %>
+
+        </td>
+	  <% end %>
+	</tr>
+  </tbody>
+</table>
+
+<div style="float: left; margin-right: 5em;">
+<h2>Requests</h2>
+<table>
+  <tbody>
+    <% for r in @person.requests %>
+      <tr>
+        <td><%= showrank(r.rank) + projlink(r.project) %></td>
+        <td><%= r.role %></td>
+        <td>
+          <%= link_to '[edit]', :controller=>'requests', :action=>'edit', :id=>r %>
+          <%= link_to '[delete]', :action=>'delete_request', :id=>r, :method=>'post' %>
+        </td>
+      <tr>
+     <% end %>
+   </tbody>
+</table>
+<p>
+   <%= link_to 'New request', :controller=>'requests', :action=>'new', :id=>@person %>
+   | <%= link_to 'Edit all requests', :action=>'edit_requests', :id=>@person %>
+</p>
+</div>
+
+<h2>Preferences</h2>
+<table>
+  <% for c in @person.catprefs %>
+    <tr <%= c.value==1 ? 'class="scheduled"' : '' %>>
+      <td><%=h c.category.name %></td>
+      <td><%= c.stringval %></td>
+    </tr>
+  <% end %>
+</table>

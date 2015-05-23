@@ -1,0 +1,39 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to project', :controller=>'projects', :action=>'show', :id=>@sess.project %>
+</div>
+
+<h1><%= @sess.project.name %>: <%= @sess %></h1>
+
+<p class="info">
+  <span class="blockcontrol"><%= link_to 'Edit Info', :action => 'edit', :id => @sess %></span>
+  <strong>Project:</strong> <%= @sess.project.name %><br />
+  <strong>Times:</strong> <%= @sess %><br />
+  <strong>Location:</strong> <%= @sess.location_name %></strong>
+</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Req</th>
+      <th>Grade</th>
+      <th>Class</th>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% grp = 'L' %>
+    <% for a in @sess.sorted_assignments %>
+    <% if a.role != grp %>
+      <%= grp=a.role; "<tr><td colspan=\"5\"></td></tr>" %>
+    <% end %>
+      <tr>
+        <td><%= a.role %></td>
+        <td><%= showrank(@sess.project.rank_for(a.person)) %></td>
+        <td><%= grade(a.person.grade) %></td>
+        <td><%= a.person.classroom.shortname %></td>
+        <td><%= a.person.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,66 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to project list', :action => 'index' %>
+</div>
+
+<h1><%= @project.name %></h1>
+
+<p class="info">
+  <strong>Short name: </strong><%=h @project.shortname %><br />
+  <strong>Grades: </strong><%= grade_range(@project) %><br />
+  <strong>Max students per session: </strong><%=h @project.capacity %><br />
+  <strong>Description:</strong><br />
+  <%=h @project.description %><br />
+  <!-- <strong>Notes:</strong><br />@project.notes<br /> -->
+</p>
+
+<% if @project.thisyear %>
+
+  <% if @can_see_schedule %>
+    <a name="sessions"/>
+    <h2>Sessions</h2>
+    <table>
+      <tr><!-- header -->
+        <th></th>
+        <% for s in @project.sesses %>
+          <th><%= s.timeslots.map{|t|t.longdesc}.join(' and ') %></th>
+        <% end %>
+      </tr>
+      <tr><!-- locations -->
+        <td>Location:</td>
+        <% for s in @project.sesses %>
+          <td><%=h s.location_name %></td>
+        <% end %>
+      </tr>
+      <tr><!-- leaders -->
+        <td>Leaders:</td>
+        <% for s in @project.sesses %>
+          <td><%= s.leader_names.join('<br/> ') %></td>
+        <% end %>
+      </tr>
+      <tr><!-- helpers -->
+        <td>Helpers:</td>
+        <% for s in @project.sesses %>
+          <td><%= s.helper_names.join('<br/> ') %></td>
+        <% end %>
+      </tr>
+      <tr><!-- students -->
+        <td>Participants:</td>
+        <% for s in @project.sesses %>
+          <td><%= s.participant_names_with_class.join('<br/> ') %></td>
+        <% end %>
+      </tr>
+      <tr><!-- counts -->
+        <td># Students:</td>
+        <% for s in @project.sesses %>
+          <td><%= s.student_count %></td>
+        <% end %>
+      </tr>
+    </table>
+  <% end %>
+
+<% else %>
+
+  <p>Not (yet?) offered this year</p>
+  <ul><li><%= link_to 'I want to own it!', :action=>'repeat', :id=>@project %></li></ul>
+
+<% end %>

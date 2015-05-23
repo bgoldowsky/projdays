@@ -1,0 +1,63 @@
+<%= error_messages_for 'project' %>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_name">Name</label>
+    Name of the project
+  </div>
+  <div class="formitem">
+    <%= text_field 'project', 'name', :size => 60  %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_description">Description</label>
+    Brief project description that students will read in order to make
+    project choices.  Be sure to include any special skills or
+    equipment they will need.
+  </div>
+  <div class="formitem">
+    <%= text_area 'project', 'description', :cols => 60, :rows => 10  %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_mingrade">Age Level</label>
+    This project is appropriate for what ages?
+  </div>
+  <div class="formitem">
+    <%= grade_select(:project, :mingrade) %> (Minimum)<br />
+    <%= grade_select(:project, :maxgrade) %> (Maximum)
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_capacity">Capacity</label>
+    How many students can participate in each session of this project?
+  </div>
+  <div class="formitem">
+    <%= text_field 'project', 'capacity', :size => 5  %>
+  </div>
+</div>
+
+<div class="formrow">
+  <div class="formlabel">
+    <label for="project_notes">Notes</label>
+    Notes on the project for Project Days coordinator and FSS staff;
+    not shown in project list for students.
+  </div>
+  <div class="formitem">
+    <%= text_area 'project', 'notes', :cols => 60, :rows => 10  %>
+  </div>
+</div>
+
+<br clear="all"/>
+
+<%= submit_tag 'Save' %>
+<p><span class="cancel"><%= link_to 'Cancel changes', :action => :index %></span></p>
+
+<!--[eoform:project]-->
+
