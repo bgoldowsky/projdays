@@ -1,0 +1,8 @@
+Project days is a few days where students and teachers can all teach each
+other anything.  This app organizes the creation of project listings, signing
+up for interests, scheduling leaders and participants, generating schedule
+listings and reports, etc.
+
+It is quite specific to the way Project Days runs at one particular school,
+but could be generalized to other similar scheduling tasks with some effort.
+If you're interested in using/extending it, feel free to contact me.
