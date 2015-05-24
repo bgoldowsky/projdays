@@ -5,12 +5,7 @@
 <h1><%= @project.name %></h1>
 
 <p class="info">
-  <strong>Short name: </strong><%=h @project.shortname %><br />
-  <strong>Grades: </strong><%= grade_range(@project) %><br />
-  <strong>Max students per session: </strong><%=h @project.capacity %><br />
-  <strong>Description:</strong><br />
-  <%=h @project.description %><br />
-  <!-- <strong>Notes:</strong><br />@project.notes<br /> -->
+  <%=h @project.description %>
 </p>
 
 <% if @project.thisyear %>
@@ -39,6 +34,9 @@
         <tr><!-- students -->
           <td colspan="2"><%= s.participant_names_with_class.join('<br/> ') %></td>
         </tr>
+	<tr><!-- totals -->
+	  <td colspan="2"><%= s.student_count %> students</td>
+	</tr>
       </table>
     <% end %><!-- loop through sesses -->
   <% end %>
