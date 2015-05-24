@@ -14,50 +14,34 @@
 </p>
 
 <% if @project.thisyear %>
+  <% if @can_see_sched %>
 
-  <% if @can_see_schedule %>
     <a name="sessions"/>
     <h2>Sessions</h2>
-    <table>
-      <tr><!-- header -->
-        <th></th>
-        <% for s in @project.sesses %>
-          <th><%= s.timeslots.map{|t|t.longdesc}.join(' and ') %></th>
-        <% end %>
-      </tr>
-      <tr><!-- locations -->
-        <td>Location:</td>
-        <% for s in @project.sesses %>
-          <td><%=h s.location_name %></td>
-        <% end %>
-      </tr>
-      <tr><!-- leaders -->
-        <td>Leaders:</td>
-        <% for s in @project.sesses %>
+    <% for s in @project.sesses %>
+      <table style="width: 15%; float: left; margin-left: 1%; font-size: 75%; page-break-inside: avoid;">
+        <tr><!-- timeslots -->
+          <th align="center" colspan="2"><%= s.timeslots.map{|t|t.longdesc}.join(' and ') %></th>
+	</tr>
+        <tr><!-- location -->
+          <td align="center" colspan="2"><%=h s.location ? s.location_name : 'NO LOCATION' %></td>
+        </tr>
+        <tr><!-- leaders -->
+          <td>L</td>
           <td><%= s.leader_names.join('<br/> ') %></td>
-        <% end %>
-      </tr>
-      <tr><!-- helpers -->
-        <td>Helpers:</td>
-        <% for s in @project.sesses %>
-          <td><%= s.helper_names.join('<br/> ') %></td>
-        <% end %>
-      </tr>
-      <tr><!-- students -->
-        <td>Participants:</td>
-        <% for s in @project.sesses %>
-          <td><%= s.participant_names_with_class.join('<br/> ') %></td>
-        <% end %>
-      </tr>
-      <tr><!-- counts -->
-        <td># Students:</td>
-        <% for s in @project.sesses %>
-          <td><%= s.student_count %></td>
-        <% end %>
-      </tr>
-    </table>
+        </tr>
+        <% helps=s.helper_names; if !helps.empty? %>
+          <tr><!-- helpers -->
+            <td>H</td>
+            <td><%= helps.join('<br/> ') %></td>
+          </tr>
+	<% end %>
+        <tr><!-- students -->
+          <td colspan="2"><%= s.participant_names_with_class.join('<br/> ') %></td>
+        </tr>
+      </table>
+    <% end %><!-- loop through sesses -->
   <% end %>
-
 <% else %>
 
   <p>Not (yet?) offered this year</p>

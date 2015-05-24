@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <title>Project Days: <%= controller.action_name %></title>
+  <title>PD: <%= controller.action_name %></title>
   <%= stylesheet_link_tag 'main', :media=>'screen,print' %>
   <%= stylesheet_link_tag 'scaffold', :media=>'screen,print' %>
 </head>
@@ -25,7 +25,7 @@
         <%= tab "Class Lists", "Class Lists", :action=>'classroom', :id=>@current_user.classroom %>
       <% end %>
       <% if (@current_user.adult?) %>
-        <%= tab "My Schedule", "My Preferences", :action=>'schedule' %>
+        <%= tab "My Schedule", "My Schedule", :action=>'schedule' %>
       <% end %>
       <% if (@current_user.teacher?) %>
         <%= tab "Reviews", "Reviews", :action=>'reviews' %>
