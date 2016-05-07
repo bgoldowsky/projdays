@@ -24,6 +24,10 @@ class ProjectsController < ApplicationController
     @fakeprojects = Project.list_fake
   end
 
+  def historylist
+    @oldprojects = Project.list_old
+  end
+
   def revive
     @project = Project.find(params[:id])
     # Set up default sessions
@@ -195,6 +199,41 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def historymerge
+    @project = Project.find(params[:id])
+    if request.post?
+      other = Project.find(params[:merge][:project])
+      if (other == nil)
+        flash[:notice] = "Can't find that project"
+      elsif (other == @project)
+        flash[:notice] = "Cannot history-merge project with itself"
+      elsif @project.sesses.size>0 or other.sesses.size>0
+        flash[:notice] = "Cannot history-merge a project with sessions"
+      elsif @project.requests.size>0 or other.requests.size>0
+        flash[:notice] = "Cannot history-merge a project with requests"
+      else
+        Project.transaction do
+          # Merge name, description, etc.
+          other.name = other.name + " / " + @project.name;
+          other.description = other.description + "\n\n" + @project.description;
+          other.notes = other.notes + "\n\n" + @project.notes
+          other.schedulenotes = other.schedulenotes + "\n\n" + @project.schedulenotes
+          other.review = other.review + "\n\n" + @project.review
+          other.save!
+          # Merge histories
+          for h in @project.histories
+            h.project = other
+            h.save!
+          end
+        end
+        @project.destroy
+        flash[:notice] = "Merged projects and histories"
+        # Drop off on edit page
+        redirect_to :action=>'edit', :id=>other
+      end
+    end
+  end
+
   def destroy
     proj = Project.find(params[:id])
     if (proj.sesses.size>0)
@@ -205,7 +244,7 @@ class ProjectsController < ApplicationController
       Request.delete_all(['project_id = ?', params[:id]])
       History.delete_all(['project_id = ?', params[:id]])
       proj.destroy
-      redirect_to :action => 'list'
+      redirect_to :action => 'historylist'
     end
   end
 

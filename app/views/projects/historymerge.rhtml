@@ -1,0 +1,15 @@
+<div class="blockcontrol">
+  <%= link_to 'Back to history list', :action=>'historylist', :id=>@project %>
+</div>
+
+<h1><%= @project.name %>: History Merge</h1>
+
+<p class="info">This merge will make two historical projects into the same
+project.  Histories will be combined, and you'll need to edit the name and
+description to make them into some sort of compromise.</p>
+
+<p><strong>Merge with:</strong><br />
+<% form_tag do %>
+<%= select :merge, :project, Project.list.collect {|p| [p.display_name, p.id]}, :prompt => 'Choose...' %>
+<%= submit_tag "Confirm" %>
+<% end %>

@@ -141,6 +141,18 @@ class Project < ActiveRecord::Base
      historical_leaders.map {|r| "#{r.who} (#{r.year})"}.join(', ')
    end
 
+   def historical_participant_average
+     ## Average number of participants per year
+     h = histories.reject{|h| h.role != 'P'}
+     years = Hash.new(0)
+     h.each {|x| years[x.year]=1 }
+     if (years.length > 0)
+       "#{h.size}/#{years.length} = #{h.size / years.length}"
+     else
+       "-"
+     end
+   end
+
    ## Looking at assignments
 
    def has_assignments?

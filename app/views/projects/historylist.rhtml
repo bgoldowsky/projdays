@@ -1,0 +1,29 @@
+<h1>Historical Projects</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Grades</th>
+    <th>Leaders</th>
+    <th title="average number of participants per year">P/year</th>
+    <th>Actions</th>
+  </tr>
+  <% for project in @oldprojects %>
+  <tr>
+    <td>
+      <%= link_to project.name, :action=>'show', :id=>project %>
+    </td>
+    <td><%= grade_range(project) %></td>
+    <td>
+      <%= project.historical_leaders_str %>
+    </td>
+    <td>
+      <%= project.historical_participant_average %>
+    </td>
+    <td>
+	<%= link_to 'History', :action=>'history', :id=>project %>
+    	<%= button_to 'delete', {:action=>'destroy', :id=>project}, :confirm => "Really delete project #{project.name} and its history?" %>
+	<%= link_to 'Merge with...', :action=>'historymerge', :id=>project %>
+    </td>
+  </tr>
+  <% end %>
+</table>
