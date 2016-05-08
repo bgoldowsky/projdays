@@ -5,6 +5,7 @@
     <th>Grades</th>
     <th>Leaders</th>
     <th title="average number of participants per year">P/year</th>
+    <th title="recommended?">Rec</th>
     <th>Actions</th>
   </tr>
   <% for project in @oldprojects %>
@@ -18,6 +19,9 @@
     </td>
     <td>
       <%= project.historical_participant_average %>
+    </td>
+    <td>
+        <%= link_to (project.recommended ? 'Yes' : 'No'), :action=>'toggle_recommended', :id=>project %>
     </td>
     <td>
 	<%= link_to 'History', :action=>'history', :id=>project %>

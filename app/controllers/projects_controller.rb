@@ -28,6 +28,13 @@ class ProjectsController < ApplicationController
     @oldprojects = Project.list_old
   end
 
+  def toggle_recommended
+    project = Project.find(params[:id])
+    project.recommended = ! project.recommended;
+    project.save!
+    redirect_to :action => 'historylist'
+  end
+
   def revive
     @project = Project.find(params[:id])
     # Set up default sessions
