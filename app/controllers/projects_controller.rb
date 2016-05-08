@@ -29,10 +29,10 @@ class ProjectsController < ApplicationController
   end
 
   def toggle_recommended
-    project = Project.find(params[:id])
-    project.recommended = ! project.recommended;
-    project.save!
-    redirect_to :action => 'historylist'
+    @project = Project.find(params[:id])
+    @project.recommended = ! @project.recommended;
+    @project.save!
+    render :partial=>'historylist_row'
   end
 
   def revive

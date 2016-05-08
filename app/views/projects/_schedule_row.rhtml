@@ -24,7 +24,7 @@
   <% end %>
   <td>
     <% link = url_for(:action=>'sched_refresh', :req=>@r, :trid=>@trid) %>
-    <a href="#" onclick="return update_tr('<%= @trid %>', '<%= link %>')">refresh</a>
+    <a href="#" onclick="return update_tr('<%= @trid %>', '<%= link %>', 10)">refresh</a>
   </td>
   <% if @note %>
     <td><%= @note %></td>

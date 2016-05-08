@@ -4,9 +4,9 @@ function popwin(obj) {
     return false;
 }
 
-function update_tr (domid, link) {
+function update_tr (domid, link, cols) {
     var row = $('#'+domid);
-    row.html("<td colspan=\"10\">Saving...</td>");
+    row.html("<td colspan=\"" + cols + "\">Saving...</td>");
     $.get(link, {}, function(data) {
       row.html(data);
     });
