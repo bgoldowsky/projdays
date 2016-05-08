@@ -221,11 +221,11 @@ class ProjectsController < ApplicationController
       else
         Project.transaction do
           # Merge name, description, etc.
-          other.name = other.name + " / " + @project.name;
-          other.description = other.description + "\n\n" + @project.description;
-          other.notes = other.notes + "\n\n" + @project.notes
-          other.schedulenotes = other.schedulenotes + "\n\n" + @project.schedulenotes
-          other.review = other.review + "\n\n" + @project.review
+          other.name = safe_concat(other.name, @project.name, ' / ')
+          other.description = safe_concat(other.description, @project.description, "\n\n")
+          other.notes = safe_concat(other.notes, @project.notes, "\n\n")
+          other.schedulenotes = safe_concat(other.schedulenotes, @project.schedulenotes, "\n\n")
+          other.review = safe_concat(other.review, @project.review, "\n\n")
           other.save!
           # Merge histories
           for h in @project.histories
@@ -351,4 +351,16 @@ class ProjectsController < ApplicationController
     redirect_to :action => 'show_requests', :id => proj, :anchor=>'sessions'
   end
 
+  def safe_concat (string1, string2, sep)
+    if (string1)
+      if (string2)
+        return string1 + sep + string2
+      else
+        return string1
+      end
+    else
+        return string2 || ""
+    end
+  end
+    
 end
