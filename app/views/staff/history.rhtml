@@ -1,26 +1,24 @@
 <% if @can_edit %>
-<h1>Projects From Years Past</h1>
-<p>These are projects that have been done in previous years, but which
-  no one has yet signed up to lead this year.</p>
-<ul>
-  <li>To find out more about one of these, click the name.</li>
-  <li>If you want to be the owner of the project this year, click "Own it!".</li>
+<h1>Suggested Project List</h1>
+<p>These are projects that have worked well in previous years,
+but which no one has yet signed up to lead this year.</p>
+<p>If you want to be the owner of the project this year, click "Own it!".</p>
 </ul>
 <table>
   <tr>
     <th>Name</th>
     <th>Grades</th>
-    <th>Who Led It</th>
+    <th>Description</th>
     <th>Repeat?</th>
   </tr>
   <% for project in @oldprojects %>
   <tr>
     <td>
-      <%= link_to project.name, :action=>'show_proj', :id=>project %>
+      <%= project.name %>
     </td>
     <td><%= grade_range(project) %></td>
     <td>
-      <%= project.historical_leaders_str %>
+      <%= project.description %>
     </td>
     <td>
       <%= link_to 'Own it!', :action=>'repeat', :id=>project %>

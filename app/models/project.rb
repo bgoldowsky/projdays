@@ -45,6 +45,14 @@ class Project < ActiveRecord::Base
      find :all, :order=>'shortname, name', :conditions=>'isreal=false'
    end
 
+   def Project.list_recommended (only_real = true)
+     cond = 'thisyear=false AND recommended=true'
+     if only_real
+       cond = 'isreal=true AND ' + cond
+     end
+     find :all, :order=>'name', :conditions=>cond
+   end
+
    def Project.list_old (only_real = true)
      cond = 'thisyear=false'
      if only_real

@@ -36,7 +36,7 @@ class StaffController < ApplicationController
   end
 
   def history
-    @oldprojects = Project.list_old
+    @oldprojects = Project.list_recommended
   end
 
   def add_me

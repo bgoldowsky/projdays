@@ -1,32 +1,14 @@
 <% if @can_edit %>
 <!--
-  <p>Here you can view the <%= Date.today.year %> projects and add your own:</p>
-  <ul>
-    <li>Click a project name to view or edit information about it</li>
-    <li>Click "[add me]" to list yourself as interested in leading an
-    existing project</li>
-    <li>Click "New Project" to create a listing for a project you'd like
-    to lead</li>
-  </ul>
-  <h2>Add your own project</h2>
-  <p>
-   <span class="addlink"><%= link_to 'New project', :action => 'new' %></span>
-  </p>
+   <span class="addlink"><%= link_to 'Create', :action => 'new' %></span>
 -->
-<h2>Project Submissions</h2>
-<p>By offering a project, you become its <strong>owner</strong>.
-Owning a project means you are the point person who will get materials
-organized before project days.  You get to lead the project and/or
-give instructions to other leaders.</p>
+<h2>Creating this year's project list</h2>
+<p>Please read through the <strong>
+<%= link_to 'Suggested Projects', :action => 'history' %></strong>
+and select 1 to 2 projects to own.  Owning a project means you are the point person who will get materials organized before project days.  You will get to lead that project and/or give instructions to other leaders.  At this stage, we are creating the list of projects being offered.</p>
 
-<p>To offer a project click one of these options:
- <ul>
-  <li><span class="addlink"><%= link_to 'Create:', :action => 'new' %></span>
-    invent a brand new project</li>
-  <li><span class="addlink"><%= link_to 'Revive:', :action => 'history' %></span>
-    browse the history of previous years' projects, and choose one
-to make your own.
- </ul>
+<p>Once our project list is complete, all adults will get a chance
+to indicate their preferences for projects to lead or help with.
 </p>
 
 <% end %>
@@ -49,9 +31,9 @@ to make your own.
 
 <p>Here is the current list of projects.
 <% if @can_edit %>
-Popular projects may require
-more sessions than the owner can run.  If you would like to offer to
-lead additional sessions, click 'add me'.
+Popular projects will require
+more sessions than one owner can run.
+Later in the process, you will get to indicate what projects you want to be involved in.
 <% end %>
 </p>
 
@@ -60,8 +42,7 @@ lead additional sessions, click 'add me'.
     <th>Name</th>
     <th>Grades</th>
     <% if @can_edit %>
-      <th>Owner(s)</th>
-      <th>Other Potential Leaders</th>
+      <th>Owner</th>
     <% end %>
   </tr>
   
@@ -79,10 +60,12 @@ lead additional sessions, click 'add me'.
       <td>
         <%= project.owner_requests_str %>
       </td>
+<!--
       <td>
         <%= project.leader_requests_str(true) %>
         [<%= link_to 'add me', :action=>'add_me', :id=>project %>]
       </td>
+-->
    <% else %>
     <% end %>
   </tr>
