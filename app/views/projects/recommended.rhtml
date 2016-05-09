@@ -13,7 +13,8 @@
   <% for project in @oldprojects %>
   <tr>
     <td>
-      <%= project.name %>
+      <%= link_to project.name, :action=>'show', :id=>project %>
+    </td>
     </td>
     <td><%= grade_range(project) %></td>
     <td>
