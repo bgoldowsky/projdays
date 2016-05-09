@@ -28,6 +28,17 @@ class ProjectsController < ApplicationController
     @oldprojects = Project.list_old
   end
 
+  def recommended
+    @oldprojects = Project.list_recommended
+  end
+
+  def unrecommend
+    @project = Project.find(params[:id])
+    @project.recommended = false
+    @project.save!
+    redirect_to :action=>'recommended'
+  end
+
   def toggle_recommended
     @project = Project.find(params[:id])
     @project.recommended = ! @project.recommended;

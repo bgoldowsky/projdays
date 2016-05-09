@@ -1,0 +1,29 @@
+<div class="blockcontrol">
+  <%= link_to 'All history', :action=>'historylist' %> | 
+  Recommended projects
+</div>
+<h1>Recommended Projects</h1>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Grades</th>
+    <th>Description</th>
+    <th>Actions</th>
+  </tr>
+  <% for project in @oldprojects %>
+  <tr>
+    <td>
+      <%= project.name %>
+    </td>
+    <td><%= grade_range(project) %></td>
+    <td>
+      <%= project.description %>
+    </td>
+    <td>
+      <%= button_to 'unrecommend', :action=>'unrecommend', :id=>project %>
+      <%= link_to 'Merge with...', :action=>'historymerge', :id=>project %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
