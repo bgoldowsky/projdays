@@ -7,7 +7,7 @@
 
 <table>
   <tr>
-  <% for column in [ 'name', 'grades', 'cap\'ty', 'reqs', 'leader reqs', 'times' ] %>
+  <% for column in [ 'name', 'grades', 'cap\'ty', 'reqs', 'owner', 'times' ] %>
     <th><%= column %></th>
   <% end %>
   </tr>
@@ -17,8 +17,8 @@
     <td><%= link_to project.display_name, :action=>'show', :id=>project %></td>
     <td><%=h grade_range(project) %></td>
     <td><%=h project.capacity %></td>
-    <td><%=h project.requests.size %></td>
-    <td><%=h project.leader_requests_str %></td>
+    <td><%=h project.student_requesters.size %></td>
+    <td></td>
 	<td>
 	  <% for s in project.sesses %>
 	    <%=h s.to_s %>

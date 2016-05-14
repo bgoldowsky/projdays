@@ -70,13 +70,3 @@
    | <%= link_to 'Edit all requests', :action=>'edit_requests', :id=>@person %>
 </p>
 </div>
-
-<h2>Preferences</h2>
-<table>
-  <% for c in @person.catprefs %>
-    <tr <%= c.value==1 ? 'class="scheduled"' : '' %>>
-      <td><%=h c.category.name %></td>
-      <td><%= c.stringval %></td>
-    </tr>
-  <% end %>
-</table>

@@ -1,0 +1,28 @@
+<% rank = @user.request_rank_for_project(@project) %>
+
+<% if (rank == 1) %>
+  <td class="green"><strong>Favorite</strong></td>
+<% elsif (rank == 2) %>
+  <td class="green"><strong style="font-size: 150%;">&#10003;</strong></td>
+<% else %>
+  <% link = url_for(:action=>'set_req_rank', :rank=>2, :id=>@project) %>
+  <td><a href="#" onclick="return update_tr('<%= @project.id %>', '<%= link %>', 4);">+</a></td>
+<% end %>
+
+<% if (rank == 3) %>
+  <td class="yellow"><strong style="font-size: 150%;">&#10003;</strong></td>
+<% else %>
+  <% link = url_for(:action=>'set_req_rank', :rank=>3, :id=>@project) %>
+  <td><a href="#" onclick="return update_tr('<%= @project.id %>', '<%= link %>', 4);">+</a></td>
+<% end %>
+
+<% if (rank == 4) %>
+  <td class="red"><strong style="font-size: 150%;">&#10003;</strong></td>
+<% else %>
+  <% link = url_for(:action=>'set_req_rank', :rank=>4, :id=>@project) %>
+  <td><a href="#" onclick="return update_tr('<%= @project.id %>', '<%= link %>', 4);">+</a></td>
+<% end %>
+
+<td>
+  <%= link_to @project.name, :action=>'show_proj', :id=>@project %>
+</td>

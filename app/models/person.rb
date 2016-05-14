@@ -108,7 +108,7 @@ class Person < ActiveRecord::Base
   end
 
   def self.adult_max_choices
-    2
+    4
   end
 
   def self.unit_max_choices

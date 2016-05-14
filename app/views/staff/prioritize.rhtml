@@ -1,0 +1,36 @@
+<h2>Please Rate Every Project</h2>
+
+<p>This is a two-step process:</p>
+<ul>
+  <li><strong>Stage one:</strong> Rate every project green/yellow/red</li>
+  <li><strong>Stage two:</strong> Give specific top choices and any notes
+particular to partnerships or scheduling.</li>
+</ul>
+<p>Remember we always need extra leaders for popular projects
+(egg drop, gak, spy school) and extra helpers for messy things.</p>
+
+<dl>
+  <dt>Green</dt>
+  <dd>I could/would be willing to lead a session</dd>
+  <dt>Yellow</dt>
+  <dd>I would be okay helping with a session</dd>
+  <dt>Red</dt>
+  <dd>No Thanks!</dd>
+</dl>
+
+<table>
+  <tr>
+    <th class="green">Green</th>
+    <th class="yellow">Yellow</th>
+    <th class="red">Red</th>
+    <th>Project</th>
+  </tr>
+  <% for @project in @projects %>
+    <tr id="<%= @project.id %>">
+      <%= render :partial=>'prioritize_row' %>
+    </tr>
+  <% end %>
+</table>
+
+<p>When you have indicated your preference for <em>all</em> of the projects, you can move on to choosing your favorites:</p>
+<%= button_to 'Next step', :action=>'favorites' %>

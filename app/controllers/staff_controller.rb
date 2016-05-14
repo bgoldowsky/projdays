@@ -174,7 +174,7 @@ class StaffController < ApplicationController
 
   def schedule
     if (!can_see_sched)
-      redirect_to :action=>'available'
+      redirect_to :action=>'prioritize'
     end
     @tab = 'My Schedule'
     @person = Person.find(session[:user_id], :include=>'assignments')
@@ -320,6 +320,55 @@ class StaffController < ApplicationController
         redirect_to :action => 'classroom', :id => @person.classroom
       end
     end
+  end
+
+  def prioritize
+    @tab = 'My Schedule'
+    @user = Person.find(session[:user_id], :include=>['requests'])
+    @projects = Project.list_real_by_name
+  end
+
+  def favorites
+    @tab = 'My Schedule'
+    @user = Person.find(session[:user_id], :include=>['requests'])
+    @projects = Project.list_real_by_name
+    if (@user.requests.length < @projects.length)
+      flash[:notice] = "Please rank all of the projects"
+      redirect_to :action=>'prioritize'
+    end
+    ## Toggle rank between 1 (favorite) and 2 (green)
+    if (params[:toggle])
+      proj = Project.find(params[:toggle])
+      req = @user.request_for_project(proj)
+      req.rank = (req.rank==1 ? 2 : 1)
+      req.save!
+    end
+    @n_favorites = @user.requests.reject{|r|r.rank!=1}.length
+    @can_add = (@n_favorites<3)
+  end
+
+  def set_req_rank
+    @project = Project.find(params[:id])
+    rank = params[:rank].to_i
+    @user = Person.find(session[:user_id])
+    req = Request.find(:first, :conditions=>['project_id=? and person_id=?',
+                                                  @project.id, @user.id])
+    if (!req)
+      req = Request.new
+      req.project = @project
+      req.person = @user
+      req.rank = rank
+    end
+    req.rank = rank
+    if (rank<=2)
+      req.role = 'L'
+    elsif (rank==3)
+      req.role = 'H'
+    else
+      req.role = 'X'
+    end
+    req.save!
+    render :partial=>'prioritize_row'
   end
 
   private

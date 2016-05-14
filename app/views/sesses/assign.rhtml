@@ -29,10 +29,12 @@ function set_and_go (id) {
 <ul>
  <% for s in @sesses %>
   <li>
-    <%= showrank(@person.request_rank_for_project(s.project)) %>
+    <% req = @person.request_for_project(s.project) %>
+    <%= showrank(req ? req.rank : nil) %>
     <% cls = (@person.schedule_to(s.project) ? 'scheduled' : 'unsched') %>
     <span class="<%=cls%>">
       <a href="#" onclick="return set_and_go(<%=s.id%>);"><%= s.project.display_name %></a>
+      <%= req ? "("+req.role+")" : "" %>
     </span>
   </li>
  <% end %>

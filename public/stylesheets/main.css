@@ -103,7 +103,7 @@ tr {
   page-break-inside: avoid;
 }
 
-tr.highlight {
+tr.highlight, td.highlight {
   background-color: #FFEBCD;
 }
 
@@ -181,15 +181,15 @@ img {
   border-radius: 6px;
 }
 
-.scheduled {
+.scheduled, .green {
   background: #80FF80;
 }
 
-.conflict {
+.conflict, .red {
   background: #F49080;
 }
 
-.confirmed {
+.confirmed, .yellow {
   background: #FFFF00;
 }
 

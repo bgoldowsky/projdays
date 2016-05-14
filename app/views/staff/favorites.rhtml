@@ -1,0 +1,34 @@
+<h2>Please Rate Every Project</h2>
+
+<p>Here are the projects you rated "green".  Please indicate 
+<strong>up to three</strong> that are your favorites (you would
+be disappointed if you can't be scheduled to lead them).</p>
+
+<table>
+  <tr>
+    <th>Fav?</th>
+    <th>Project</th>
+  </tr>
+  <% for @project in @projects %>
+    <% rank = @user.request_rank_for_project(@project) %>
+    <% if (rank <= 2) %>
+      <tr id="<%= @project.id %>">
+        <td>
+	  <% if (rank == 1) %>
+	    <%= link_to "Favorite", :action=>'favorites', :toggle=>@project %>
+	  <% elsif (@can_add==true) %>
+	    <%= link_to "+", :action=>'favorites', :toggle=>@project %>
+          <% else %>
+	  <% end %>
+       </td>
+        <td>
+	  <%= link_to @project.name, :action=>'show_proj', :id=>@project %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+</table>
+
+<p>
+<%= button_to "Previous step", :action=>'prioritize' %>
+</p>
