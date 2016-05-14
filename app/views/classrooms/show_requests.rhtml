@@ -24,9 +24,6 @@ $(document).ready(function() {
       <% for i in 1..@maxrank %>
         <th><%= showrank(i) %></th>
       <% end %>
-      <% if @showprefs %>
-        <th>YES</th><th>Okay</th>
-      <% end %>
     </tr>
   </thead>
   <tbody>
@@ -43,10 +40,6 @@ $(document).ready(function() {
               </span>
             <% end %>
           </td>
-        <% end %>
-        <% if @showprefs %>
-          <td><%= p.catprefs_with_value_string(1) %></td>
-          <td><%= p.catprefs_with_value_string(2) %></td>
         <% end %>
       </tr>
     <% end %>

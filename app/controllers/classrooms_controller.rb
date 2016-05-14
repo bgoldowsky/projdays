@@ -38,11 +38,6 @@ class ClassroomsController < ApplicationController
     @classrooms = Classroom.list
     @timeslots = Timeslot.find(:all)
     @maxrank = @classroom.max_choices
-    if @classroom.adult?
-      @showprefs = true
-    else
-      @showprefs = false
-    end
   end
 
   def new

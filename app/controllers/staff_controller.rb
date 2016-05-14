@@ -172,21 +172,6 @@ class StaffController < ApplicationController
     @project.sesses.sort! {|a, b| a.timeslots.first.id <=> b.timeslots.first.id}
   end
 
-  def prefs
-    user = Person.find(session[:user_id])
-    cats = Category.list
-    @prefs = user.catprefs
-    for c in cats
-      if (@prefs.index{|p|p.category==c} == nil)
-        cp = Catpref.new
-        cp.category = c
-        cp.person = user
-        cp.value = 2
-        @prefs << cp
-      end
-    end
-  end
-
   def schedule
     if (!can_see_sched)
       redirect_to :action=>'available'
@@ -210,23 +195,8 @@ class StaffController < ApplicationController
     @tab = 'My Schedule'
     @user = Person.find(session[:user_id], :include=>'assignments')
     @unavail_sesses = unavailable_proj().sesses
-    cats = Category.list
-    @prefs = @user.catprefs
-    for c in cats
-      if (@prefs.index{|p|p.category==c} == nil)
-        cp = Catpref.new
-        cp.category = c
-        cp.person = @user
-        cp.value = 2
-        @prefs << cp
-      end
-    end
     if (request.post?)
       @user.notes = params[:notes]
-      for i in (0..@prefs.length-1)
-        @prefs[i].value = params[:catprefs][i]
-        @prefs[i].save!
-      end
       @user.save!
       avail = Timeslot.find(params[:time_ids])
       for ses in @unavail_sesses

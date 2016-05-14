@@ -13,15 +13,6 @@ preferences.</strong>
 
 <% form_tag do %>
 
-<table style="margin-left: 1em">
-  <% for p in @prefs %>
-   <tr>
-     <td><%=h p.category.name %></td>
-     <td><%= pref_select(p) %></td>
-   </tr>
- <% end %>
-</table>
-
 <p>Please check all times that will work for you:<br />
 <% for ses in @unavail_sesses %>
   <%= checkbox_for_timeslot(ses.timeslots.first, !@user.is_assigned?(ses)) %>
