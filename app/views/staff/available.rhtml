@@ -4,14 +4,18 @@
 staff popular projects.<br />
 <strong>All adults should fill out this page with their personal
 preferences.</strong> 
-<ul>
-  <li><em>Yes!</em> gives you first priority to participate in that style project.</li>
-  <li><em>Okay</em> means that you are in a pool of potential helpers and leaders.</li>
-  <li><em>No, thanks</em> will keep you off the list.
-</ul>
 </p>
 
 <% form_tag do %>
+
+<table style="margin-left: 1em">
+  <% for p in @prefs %>
+   <tr>
+     <td><%=h p.category.name %></td>
+     <td><%= pref_select(p) %></td>
+   </tr>
+ <% end %>
+</table>
 
 <p>Please check all times that will work for you:<br />
 <% for ses in @unavail_sesses %>

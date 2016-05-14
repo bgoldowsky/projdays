@@ -29,6 +29,24 @@ be disappointed if you can't be scheduled to lead them).</p>
   <% end %>
 </table>
 
-<p>
-<%= button_to "Previous step", :action=>'prioritize' %>
+<% form_tag do %>
+
+  <p>Use "notes" to give the PD coordinator any information (desires or
+constraints) that affect your scheduling.  If you are a
+high-school-aged alum, please note your current grade level.<br />
+  <%= text_area_tag 'notes', @user.notes, {:cols=>60, :rows=>5} %>
+  </p>
+
+  <p>Please check all times that will work for you:<br />
+  <% for ses in @unavail_sesses %>
+    <%= checkbox_for_timeslot(ses.timeslots.first, !@user.is_assigned?(ses)) %>
+    <br />
+  <% end %>
+  </p>
+
+  <%= submit_tag 'Save' %>
+<% end %>
+
+<p style="font-size: 150%;">
+<%= link_to "&lt;Previous step", :action=>'prioritize' %>
 </p>

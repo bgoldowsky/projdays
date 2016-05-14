@@ -331,6 +331,7 @@ class StaffController < ApplicationController
   def favorites
     @tab = 'My Schedule'
     @user = Person.find(session[:user_id], :include=>['requests'])
+    @unavail_sesses = unavailable_proj().sesses
     @projects = Project.list_real_by_name
     if (@user.requests.length < @projects.length)
       flash[:notice] = "Please rank all of the projects"
@@ -345,6 +346,29 @@ class StaffController < ApplicationController
     end
     @n_favorites = @user.requests.reject{|r|r.rank!=1}.length
     @can_add = (@n_favorites<3)
+    if (request.post?)
+      @user.notes = params[:notes]
+      @user.save!
+      avail = Timeslot.find(params[:time_ids])
+      for ses in @unavail_sesses
+        if (@user.is_assigned?(ses))
+          if (avail.include? ses.timeslots.first)
+            # no longer unavailable
+            @user.is_assigned?(ses).destroy
+          end
+        else
+          if (!avail.include? ses.timeslots.first)
+            # newly unavailable
+            a = Assignment.new
+            a.person = @user
+            a.role = 'P'
+            a.sess = ses
+            a.save!
+          end
+        end
+      end
+      @user = Person.find(session[:user_id], :include=>['requests'])
+    end
   end
 
   def set_req_rank
