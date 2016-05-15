@@ -1,6 +1,7 @@
-<% rank = @user.request_rank_for_project(@project) %>
+<% req  = @user.request_for_project(@project) %>
+<% rank = req.rank %>
 
-<% if (rank == 1) %>
+<% if (rank == 1 && req.role == 'L') %>
   <td class="green"><strong>Favorite</strong></td>
 <% elsif (rank == 2) %>
   <td class="green"><strong style="font-size: 150%;">&#10003;</strong></td>
@@ -9,7 +10,9 @@
   <td><a href="#" onclick="return update_tr('<%= @project.id %>', '<%= link %>', 4);">+</a></td>
 <% end %>
 
-<% if (rank == 3) %>
+<% if (rank == 1 && req.role == 'H') %>
+  <td class="yellow"><strong>Favorite</strong></td>
+<% elsif (rank == 3) %>
   <td class="yellow"><strong style="font-size: 150%;">&#10003;</strong></td>
 <% else %>
   <% link = url_for(:action=>'set_req_rank', :rank=>3, :id=>@project) %>
@@ -24,5 +27,5 @@
 <% end %>
 
 <td>
-  <%= link_to @project.name, :action=>'show_proj', :id=>@project %>
+  <%= link_to @project.name, {:action=>'project_popup', :id=>@project}, pop_opts %>
 </td>

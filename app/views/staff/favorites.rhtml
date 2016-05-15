@@ -1,8 +1,8 @@
-<h2>Please Rate Every Project</h2>
+<h2>Favorite Projects</h2>
 
-<p>Here are the projects you rated "green".  Please indicate 
+<p>Here are the projects you are interested in.  Please indicate 
 <strong>up to three</strong> that are your favorites (you would
-be disappointed if you can't be scheduled to lead them).</p>
+be disappointed if you can't be scheduled into them).</p>
 
 <table>
   <tr>
@@ -10,11 +10,11 @@ be disappointed if you can't be scheduled to lead them).</p>
     <th>Project</th>
   </tr>
   <% for @project in @projects %>
-    <% rank = @user.request_rank_for_project(@project) %>
-    <% if (rank <= 2) %>
+    <% req = @user.request_for_project(@project) %>
+    <% if (req.rank <= 3) %>
       <tr id="<%= @project.id %>">
-        <td>
-	  <% if (rank == 1) %>
+        <td class="<%= req.role=='L' ? 'green' : 'yellow' %>">
+	  <% if (req.rank == 1) %>
 	    <%= link_to "Favorite", :action=>'favorites', :toggle=>@project %>
 	  <% elsif (@can_add==true) %>
 	    <%= link_to "+", :action=>'favorites', :toggle=>@project %>
@@ -22,7 +22,7 @@ be disappointed if you can't be scheduled to lead them).</p>
 	  <% end %>
        </td>
         <td>
-	  <%= link_to @project.name, :action=>'show_proj', :id=>@project %>
+	  <%= link_to @project.name, {:action=>'project_popup', :id=>@project}, pop_opts %>
         </td>
       </tr>
     <% end %>
@@ -35,13 +35,6 @@ be disappointed if you can't be scheduled to lead them).</p>
 constraints) that affect your scheduling.  If you are a
 high-school-aged alum, please note your current grade level.<br />
   <%= text_area_tag 'notes', @user.notes, {:cols=>60, :rows=>5} %>
-  </p>
-
-  <p>Please check all times that will work for you:<br />
-  <% for ses in @unavail_sesses %>
-    <%= checkbox_for_timeslot(ses.timeslots.first, !@user.is_assigned?(ses)) %>
-    <br />
-  <% end %>
   </p>
 
   <%= submit_tag 'Save' %>

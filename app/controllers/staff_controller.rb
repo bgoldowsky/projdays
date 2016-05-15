@@ -172,6 +172,11 @@ class StaffController < ApplicationController
     @project.sesses.sort! {|a, b| a.timeslots.first.id <=> b.timeslots.first.id}
   end
 
+  def project_popup
+    @project = Project.find(params[:id])
+    render :layout=>'popup-layout'
+  end
+
   def schedule
     if (!can_see_sched)
       redirect_to :action=>'prioritize'
@@ -337,11 +342,15 @@ class StaffController < ApplicationController
       flash[:notice] = "Please rank all of the projects"
       redirect_to :action=>'prioritize'
     end
-    ## Toggle rank between 1 (favorite) and 2 (green)
+    ## Toggle rank between 1 (favorite) and 2/3 (green/yellow)
     if (params[:toggle])
       proj = Project.find(params[:toggle])
       req = @user.request_for_project(proj)
-      req.rank = (req.rank==1 ? 2 : 1)
+      if (req.rank == 1)
+        req.rank = (req.role=="L" ? 2 : 3)
+      else
+        req.rank = 1
+      end
       req.save!
     end
     @n_favorites = @user.requests.reject{|r|r.rank!=1}.length
@@ -349,25 +358,7 @@ class StaffController < ApplicationController
     if (request.post?)
       @user.notes = params[:notes]
       @user.save!
-      avail = Timeslot.find(params[:time_ids])
-      for ses in @unavail_sesses
-        if (@user.is_assigned?(ses))
-          if (avail.include? ses.timeslots.first)
-            # no longer unavailable
-            @user.is_assigned?(ses).destroy
-          end
-        else
-          if (!avail.include? ses.timeslots.first)
-            # newly unavailable
-            a = Assignment.new
-            a.person = @user
-            a.role = 'P'
-            a.sess = ses
-            a.save!
-          end
-        end
-      end
-      @user = Person.find(session[:user_id], :include=>['requests'])
+      flash[:notice] = "Notes saved"
     end
   end
 
