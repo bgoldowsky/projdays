@@ -1,5 +1,5 @@
 <% req  = @user.request_for_project(@project) %>
-<% rank = req.rank %>
+<% rank = req ? req.rank : nil %>
 
 <% if (rank == 1 && req.role == 'L') %>
   <td class="green"><strong>Favorite</strong></td>
