@@ -28,7 +28,10 @@
   <%=h @project.review %></p>
 </div>
 
-<p><%= link_to 'Scheduling grid', :action=>'schedule', :id=>@project %></p>
+<p>
+  <%= link_to 'Scheduling grid', :action=>'schedule', :id=>@project %> |
+  <%= link_to 'Requests', :action=>'requests', :id=>@project %>
+</p>
 
 <a name="sessions"/>
 <h2>Sessions</h2>

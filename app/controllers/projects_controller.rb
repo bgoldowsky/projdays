@@ -108,9 +108,9 @@ class ProjectsController < ApplicationController
   end
 
   ## This screen is no longer used
-  def show_requests
-    @project = Project.find(params[:id], :include=>['sesses'])
-    @project.sesses.sort! {|a, b| a.timeslots.first.id <=> b.timeslots.first.id}
+  def requests
+    @show_adults = (params[:show_adults] == 'true')
+    @project = Project.find(params[:id], :include=>['requests'])
   end
 
   def history
@@ -120,6 +120,7 @@ class ProjectsController < ApplicationController
   end
 
   def schedule
+    @show_adults = (params[:show_adults]=='true')
     @timeslots = Timeslot.list
     @project = Project.find(params[:id], :include=>[{:requests => {:person => :assignments}}, :sesses])
     @project.sesses.sort! {|a, b| a.timeslots.first.id <=> b.timeslots.first.id}

@@ -8,13 +8,15 @@ $(document).ready(function() {
 
 </script>
 <div class="blockcontrol">
-  <%= link_to 'Back to project list', :action => 'fullness' %>
+  <%= link_to 'Back to project list', :action => 'fullness' %><br />
+  <%= link_to 'Back to project', :action=>'show', :id=>@project %>
 </div>
 
 <h1><%= @project.name %></h1>
 
 <p>
-  <%= link_to 'Main project page', :action=>'show', :id=>@project %>
+  Adults are currently <%= @show_adults ? 'shown' : 'hidden' %>.
+  <%= link_to 'toggle', :show_adults=>!@show_adults %>
 </p>
 
 <table id="tbl">
@@ -27,31 +29,38 @@ $(document).ready(function() {
       <% for s in @timeslots %>
         <th><%= s %></th>
       <% end %>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     <tr><td colspan="10"><strong>Leaders</strong></td></tr>
     <% for @r in @project.leader_requests %>
-      <% @trid = "tr#{@r.id}" %>
-      <tr id="<%= @trid %>">
-      <%= render :partial=>'schedule_row' %>
-      </tr>
+      <% if (@show_adults || !@r.person.adult?) %>
+        <% @trid = "tr#{@r.id}" %>
+        <tr id="<%= @trid %>">
+          <%= render :partial=>'schedule_row' %>
+        </tr>
+      <% end %>
     <% end %>
 
     <tr><td colspan="10"><strong>Helpers</strong></td></tr>
     <% for @r in @project.helper_requests %>
-      <% @trid = "tr#{@r.id}" %>
-      <tr id="<%= @trid %>">
-      <%= render :partial=>'schedule_row' %>
-      </tr>
+      <% if (@show_adults || !@r.person.adult?) %>
+        <% @trid = "tr#{@r.id}" %>
+        <tr id="<%= @trid %>">
+          <%= render :partial=>'schedule_row' %>
+        </tr>
+      <% end %>
     <% end %>
 
     <tr><td colspan="10"><strong>Kindergarten</strong></td></tr>
     <% for @r in @project.participant_requests.reject{|r|r.person.grade>0} %>
-      <% @trid = "tr#{@r.id}" %>
-      <tr id="<%= @trid %>">
-      <%= render :partial=>'schedule_row' %>
-      </tr>
+      <% if (@show_adults || !@r.person.adult?) %>
+        <% @trid = "tr#{@r.id}" %>
+        <tr id="<%= @trid %>">
+          <%= render :partial=>'schedule_row' %>
+        </tr>
+      <% end %>
     <% end %>
 
     <tr><td colspan="10"><strong>Participants</strong></td></tr>
