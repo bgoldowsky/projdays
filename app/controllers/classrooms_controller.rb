@@ -34,10 +34,15 @@ class ClassroomsController < ApplicationController
   end
 
   def show_requests
+    @top = params[:top].to_i
     @classroom = Classroom.find(params[:id])
     @classrooms = Classroom.list
     @timeslots = Timeslot.find(:all)
-    @maxrank = @classroom.max_choices
+    if (@top==1)
+      @maxrank = @classroom.max_top_choices
+    else
+      @maxrank = @classroom.max_choices
+    end
   end
 
   def new

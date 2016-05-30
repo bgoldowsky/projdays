@@ -134,8 +134,12 @@ module ApplicationHelper
     "<span class=\"#{cls}\">#{num}</span>"
   end
 
-  def classroom_links(act='show')
-    @classrooms.map { |c| link_to(c.shortname, :action=>act, :id=>c) }.join(' | ')
+  # Hash should at least define :action=>'...' for the links
+  def classroom_links(hash)
+    @classrooms.map { |c|
+      hash[:id]=c
+      link_to(c.shortname, hash)
+    }.join(' | ')
   end
 
   def pref_select(cp)

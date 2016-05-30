@@ -103,6 +103,8 @@ class Person < ActiveRecord::Base
     grade >= 10
   end
 
+  # *max_choices defines the range of ranks requests can have
+
   def self.default_max_choices
     8
   end
@@ -122,6 +124,25 @@ class Person < ActiveRecord::Base
       Person.unit_max_choices
     else
       Person.default_max_choices
+    end
+  end
+
+  # *top_choices is used for the "top choices only"
+  # option in show_requests page
+
+  def self.default_top_choices
+    3
+  end
+
+  def self.adult_top_choices
+    2
+  end
+  
+  def top_choices
+    if adult?
+      Person.adult_top_choices
+    else
+      Person.default_top_choices
     end
   end
 

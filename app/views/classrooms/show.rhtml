@@ -6,16 +6,21 @@ $(document).ready(function() {
     });
 });
 </script>
+
+<div class="blockcontrol">
+ <%= link_to 'Printable view', :action=>'show_printable', :id=>@classroom %>
+</div>
+
 <h1>Classroom: <%= @classroom.name %></h1>
 
 <div class="blockcontrol">
- <%= classroom_links %>
+ <%= classroom_links({}) %>
 </div>
 
 <p>
 <!-- <%= link_to 'Edit by code', :action => 'edit_list', :id=>@classroom %> | -->
- <%= link_to 'Show requests', :action=>'show_requests', :id=>@classroom %> |
- <%= link_to 'Printable view', :action=>'show_printable', :id=>@classroom %>
+ <%= link_to 'Top requests', :action=>'show_requests', :id=>@classroom, :top=>1 %> |
+ <%= link_to 'All requests', :action=>'show_requests', :id=>@classroom, :top=>0 %>
 </p>
 
 <table id="tbl">

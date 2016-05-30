@@ -9,11 +9,16 @@ $(document).ready(function() {
 <h1>Classroom: <%= @classroom.name %></h1>
 
 <div class="blockcontrol">
- <%= classroom_links(:show_requests) %>
+ <%= classroom_links(:action=>'show_requests', :top=>@top) %>
 </div>
 
 <p>
- <%= link_to 'Show Assignments', :action =>'show', :id=>@classroom %>
+ <%= link_to 'Assignments', :action =>'show', :id=>@classroom %> |
+ <% if (@top==1) %>
+   <%= link_to 'All requests', :action=>'show_requests', :id=>@classroom, :top=>0 %>
+ <% else %>
+   <%= link_to 'Top requests', :action=>'show_requests', :id=>@classroom, :top=>1 %>
+ <% end %>
 </p>
 
 <table id="tbl">

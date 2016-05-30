@@ -31,6 +31,14 @@ class Classroom < ActiveRecord::Base
     end
   end
 
+  def max_top_choices
+    if adult?
+      Person.adult_top_choices
+    else
+      Person.default_top_choices
+    end
+  end
+
   # Some Fayerweather-specific rules:
   #   Kindergarten is all "grade 0"
   #   Other classrooms contain two grade levels
