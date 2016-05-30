@@ -87,6 +87,10 @@ module ApplicationHelper
     select obj, att, [['Leader', 'L'], ['Helper', 'H'], ['Participant', 'P']]
   end
 
+  def role_select_for_assg (obj, att)
+    select obj, att, [['According to request', 'R'], ['Leader', 'L'], ['Helper', 'H'], ['Participant', 'P']]
+  end
+
   def rank_select (obj, att)
     select obj, att, (1..Person.unit_max_choices).to_a.collect {|r| [r, r]}
   end

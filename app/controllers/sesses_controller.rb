@@ -88,11 +88,21 @@ class SessesController < ApplicationController
       # When called to create new assignment:
       @assg = Assignment.new
       @assg.person = @person
-      @assg.role = @person.adult? ? 'L' : 'P'
+      @assg.role = 'R'
     end
 
     if request.post?
       if @assg.update_attributes(params[:assg])
+        if (@assg.role == 'R')
+          # R means to set role of assignment based on request
+          req = @person.request_for_project(@assg.sess.project)
+          if (req)
+            @assg.role = req.role
+          else
+            @assg.role = 'P'
+          end
+          @assg.save
+        end
         render :action=>'assigned', :layout=>'popup-layout'
       end
     else
