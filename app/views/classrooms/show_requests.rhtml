@@ -6,7 +6,7 @@ $(document).ready(function() {
     });
 });
 </script>
-<h1>Classroom: <%= @classroom.name %></h1>
+<h1><%= @top==1 ? 'Top' : 'All' %> Requests: <%= @classroom.name %></h1>
 
 <div class="blockcontrol">
  <%= classroom_links(:action=>'show_requests', :top=>@top) %>

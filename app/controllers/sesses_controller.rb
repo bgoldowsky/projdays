@@ -81,6 +81,7 @@ class SessesController < ApplicationController
     if (params[:id])
       # When first called to edit existing assignment:
       @assg = Assignment.find(params[:id])
+      @assg.role = 'R'
     elsif (params[:assg] && params[:assg][:id] != '')
       # When new info is posted:
       @assg = Assignment.find(params[:assg][:id])
