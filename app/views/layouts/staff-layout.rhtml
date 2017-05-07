@@ -26,7 +26,7 @@
       <% if (@current_user.teacher? && (@can_see_sched||@can_edit_people)) %>
         <%= tab "Class Lists", "Class Lists", :action=>'classroom', :id=>@current_user.classroom %>
       <% end %>
-      <% if (@current_user.adult?) %>
+      <% if (@current_user.adult? && !@can_edit) %>
         <%= tab "My Schedule", "My Schedule", :action=>'schedule' %>
       <% end %>
       <% if (@current_user.teacher?) %>
