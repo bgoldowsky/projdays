@@ -178,9 +178,6 @@ class StaffController < ApplicationController
   end
 
   def schedule
-    if (!can_see_sched)
-      redirect_to :action=>'prioritize'
-    end
     @tab = 'My Schedule'
     @person = Person.find(session[:user_id], :include=>'assignments')
     @timeslots = Timeslot.list
@@ -328,13 +325,13 @@ class StaffController < ApplicationController
   end
 
   def prioritize
-    @tab = 'My Schedule'
+    @tab = 'Signup'
     @user = Person.find(session[:user_id], :include=>['requests'])
     @projects = Project.list_real_by_name
   end
 
   def favorites
-    @tab = 'My Schedule'
+    @tab = 'Signup'
     @user = Person.find(session[:user_id], :include=>['requests'])
     @unavail_sesses = unavailable_proj().sesses
     @projects = Project.list_real_by_name
