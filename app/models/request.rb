@@ -8,4 +8,12 @@ class Request < ActiveRecord::Base
     role=='L' and rank==1
   end
 
+  def self.requester_map
+    reqmap = find(:all).find_all {|r| r.person.student?}.group_by{|r|r.project}
+    reqmap.each do |proj, reqlist|
+      reqmap[proj] = reqlist.map{|r| r.person}.uniq
+    end
+    reqmap
+  end
+
 end

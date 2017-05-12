@@ -1,0 +1,27 @@
+<span class="blockcontrol">
+  <%= link_to 'Back to project', :action=>'show', :id=>@project %><br/>
+</span>
+
+<h2>Overlaps with project: <%= @project.name %></h2>
+
+<p><%= @map[@project].size %> requests</p>
+
+<table>
+  <thead>
+    <th>Only this</th>
+    <th>Both</th>
+    <th>Only other</th>
+    <th>Other project</th>
+  </thead>
+  <tbody>
+    <% for p in @projects %>
+      <% reqs = @map[p] || {} %>
+      <tr>
+        <td><%= (@p_requests - reqs).size %></td>
+	<td><%= (@p_requests & reqs).size %></td>
+	<td><%= (reqs - @p_requests).size %></td>
+	<td><%= p.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

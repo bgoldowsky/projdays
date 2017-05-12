@@ -28,6 +28,13 @@ class ProjectsController < ApplicationController
     @oldprojects = Project.list_old
   end
 
+  def overlaps
+    @project = Project.find(params[:id])
+    @projects = Project.list_real
+    @map = Request.requester_map
+    @p_requests = @map[@project] || []
+  end
+
   def recommended
     @oldprojects = Project.list_recommended
   end

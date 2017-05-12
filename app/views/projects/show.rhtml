@@ -9,6 +9,7 @@
     <%= link_to 'Edit this project', :action => 'edit', :id=>@project %><br />
     <%= link_to 'Merge with...', :action=>'merge', :id=>@project %><br />
     <%= link_to 'History', :action=>'history', :id=>@project %><br />
+    <%= link_to 'Overlaps', :action=>'overlaps', :id=>@project %><br />
     <%= button_to 'Delete this project', {:action => 'destroy', :id=>@project}, :confirm=>'Really destroy project?  Are you sure it has no interesting history?' %>
   </span>  
   <p><strong>Short name: </strong><%=h @project.shortname %></p>
