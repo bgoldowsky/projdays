@@ -8,10 +8,11 @@ class StaffController < ApplicationController
     c.can_edit_people = staff_edit_people()
     c.can_review = staff_review_projects()
     c.can_see_sched = staff_view_schedule()
+    c.adult_signup = adult_signup()
     true
   }
 
-  attr_accessor :tab, :can_edit, :can_edit_people, :can_review, :can_see_sched
+  attr_accessor :tab, :can_edit, :can_edit_people, :can_review, :can_see_sched, :adult_signup
 
   def index
     if (can_review)
@@ -193,43 +194,6 @@ class StaffController < ApplicationController
     render :layout=>'popup-layout'
   end
 
-  def available
-    @tab = 'My Schedule'
-    @user = Person.find(session[:user_id], :include=>'assignments')
-    @unavail_sesses = unavailable_proj().sesses
-    if (request.post?)
-      @user.notes = params[:notes]
-      @user.save!
-      avail = Timeslot.find(params[:time_ids])
-      for ses in @unavail_sesses
-        if (@user.is_assigned?(ses))
-          if (avail.include? ses.timeslots.first)
-            # no longer unavailable
-            @user.is_assigned?(ses).destroy
-          end
-        else
-          if (!avail.include? ses.timeslots.first)
-            # newly unavailable
-            a = Assignment.new
-            a.person = @user
-            a.role = 'P'
-            a.sess = ses
-            a.save!
-          end
-        end
-      end
-      if (can_see_sched)
-        redirect_to :action=>'schedule'
-      else
-        redirect_to :action=>'thanks'
-      end
-    end
-  end
-
-  def thanks
-    @tab = 'My Schedule'
-  end
-
   def reviews
     @tab = 'Reviews'
     @person = Person.find(session[:user_id], :include=>'assignments')
@@ -321,6 +285,35 @@ class StaffController < ApplicationController
         flash[:notice] = 'Person was successfully updated.'
         redirect_to :action => 'classroom', :id => @person.classroom
       end
+    end
+  end
+
+  def available
+    @tab = 'Signup'
+    @user = Person.find(session[:user_id], :include=>'assignments')
+    @unavail_sesses = unavailable_proj().sesses
+    if (request.post?)
+      @user.notes = params[:notes]
+      @user.save!
+      avail = Timeslot.find(params[:time_ids])
+      for ses in @unavail_sesses
+        if (@user.is_assigned?(ses))
+          if (avail.include? ses.timeslots.first)
+            # no longer unavailable
+            @user.is_assigned?(ses).destroy
+          end
+        else
+          if (!avail.include? ses.timeslots.first)
+            # newly unavailable
+            a = Assignment.new
+            a.person = @user
+            a.role = 'P'
+            a.sess = ses
+            a.save!
+          end
+        end
+      end
+      redirect_to :action=>'prioritize'
     end
   end
 

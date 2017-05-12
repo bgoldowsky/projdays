@@ -101,6 +101,7 @@ class MiscController < ApplicationController
       Configuration.set("public_view_projects", params[:public_view_projects])
       Configuration.set("staff_edit_people", params[:staff_edit_people])
       Configuration.set("staff_edit_projects", params[:staff_edit_projects])
+      Configuration.set("adult_signup", params[:adult_signup])
       Configuration.set("staff_view_schedule", params[:staff_view_schedule])
       Configuration.set("staff_review_projects", params[:staff_review_projects])
       redirect_to :action=>'list'
@@ -109,6 +110,7 @@ class MiscController < ApplicationController
     @public_view_projects = ApplicationController.public_view_projects()
     @staff_edit_people = ApplicationController.staff_edit_people()
     @staff_edit_projects = ApplicationController.staff_edit_projects()
+    @adult_signup = ApplicationController.adult_signup()
     @staff_view_schedule = ApplicationController.staff_view_schedule()
     @staff_review_projects = ApplicationController.staff_review_projects()
   end

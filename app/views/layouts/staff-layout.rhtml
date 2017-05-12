@@ -26,8 +26,9 @@
       <% if (@current_user.teacher? && (@can_see_sched||@can_edit_people)) %>
         <%= tab "Class Lists", "Class Lists", :action=>'classroom', :id=>@current_user.classroom %>
       <% end %>
-      <% if (@current_user.adult? && !@can_edit && !@can_see_sched) %>
-        <%= tab "Signup", "Sign Up", :action=>'prioritize' %>
+      <% if (@current_user.adult? && @adult_signup) %>
+        <%= tab "Signup", "Sign Up",
+	    :action=>( @current_user.parent? ? 'available' : 'prioritize' ) %>
       <% end %>
       <% if (@current_user.adult? && @can_see_sched) %>
         <%= tab "My Schedule", "My Schedule", :action=>'schedule' %>

@@ -18,6 +18,11 @@
    <td>Usually allowed at start of year, false once list of projects is final</td>
   </tr>
   <tr>
+   <td class="main">Staff/parent "Sign Up" is open</td>
+   <TD><%= check_box_tag 'adult_signup', 'true', @adult_signup %></td>
+   <td>Usually allowed from the time that the final list of projects is established up until scheduling work starts</td>
+  </tr>
+  <tr>
    <td class="main">Public can view list of projects</td>
    <TD><%= check_box_tag 'public_view_projects', 'true', @public_view_projects %></td>
    <td>Usually allowed after final list of projects is established</td>

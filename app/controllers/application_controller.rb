@@ -33,6 +33,11 @@ class ApplicationController < ActionController::Base
     Configuration.get_cached("staff_edit_projects", "true") == "true"
   end
 
+  # Can staff and parents use the "Signup" tab, setting project preferences?
+  def self.adult_signup
+    Configuration.get_cached("adult_signup", "true") == "true"
+  end
+
   # Can staff and volunteers see their own schedules?
   # Set to true once scheduling is mostly done
   def self.staff_view_schedule
