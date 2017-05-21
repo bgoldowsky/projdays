@@ -64,6 +64,22 @@ class Sess < ActiveRecord::Base
     }.compact.sort
   end
 
+  def adult_helper_names
+    assignments.map {
+      |a| if (a.role == 'H' && a.person.adult?)
+            a.person.name.gsub(' ', '&nbsp;')
+          end
+    }.compact.sort
+  end
+
+  def student_helper_names
+    assignments.map {
+      |a| if (a.role == 'H' && a.person.student?)
+            a.person.name.gsub(' ', '&nbsp;')
+          end
+    }.compact.sort
+  end
+
   def participant_names
     assignments.map {
       |a| if a.role != 'L' && a.role != 'H'

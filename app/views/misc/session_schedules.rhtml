@@ -1,12 +1,14 @@
 <% for t in @timeslots %>
-  <h1><%= t.longdesc %></h1>
   <table style="page-break-inside: avoid; page-break-after: always;">
     <thead>
+      <tr>
+        <th colspan="6"><%= t.longdesc %></th>
+      </tr>
       <tr>
         <th>Project</th>
         <th>Location</th>
         <th>Leaders</th>
-        <th>Helpers</th>
+        <th colspan="2">Helpers</th>
         <th>Participants</th>
       </tr>
     </thead>
@@ -17,7 +19,8 @@
             <td><%= s.project.name %></td>
             <td><%= s.location ? s.location.name : 'NO LOCATION' %></td>
             <td><%= s.leader_names.join('<br />') %></td>
-            <td><%= s.helper_names.join('<br />') %></td>
+            <td><%= s.adult_helper_names.join('<br />') %></td>
+            <td><%= s.student_helper_names.join('<br />') %></td>
             <td><%= s.participant_names_with_class.join('<br />') %></td>
           </tr>
         <% end %>

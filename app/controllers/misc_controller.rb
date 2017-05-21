@@ -80,6 +80,10 @@ class MiscController < ApplicationController
     end
   end
 
+  def projects_sponsors
+    @projects = Project.list_real
+  end
+
   def poster
     @timeslots = Timeslot.find(:all,  :include=>['sesses']);
     render :layout=>'popup-layout'

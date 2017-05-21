@@ -6,7 +6,7 @@
         <th>Project</th>
         <th>Location</th>
         <th>Leaders</th>
-        <th>Helpers</th>
+        <th colspan="2">Helpers</th>
         <th>Participants</th>
       </tr>
     </thead>
@@ -17,7 +17,8 @@
             <td><%= s.project.name %></td>
             <td><%= s.location ? s.location.name : 'NO LOCATION' %></td>
             <td><%= s.leader_names.join('<br />') %></td>
-            <td><%= s.helper_names.join('<br />') %></td>
+            <td><%= s.adult_helper_names.join('<br />') %></td>
+            <td><%= s.student_helper_names.join('<br />') %></td>
             <td><%= s.assignments.reject {|a| a.role != 'P'}.length %></td>
           </tr>
         <% end %>
