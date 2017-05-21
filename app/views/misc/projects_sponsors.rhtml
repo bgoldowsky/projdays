@@ -1,15 +1,18 @@
-  <table style="page-break-inside: avoid; width: 100%;">
+<table style="width: 100%;">
     <thead>
       <tr>
-        <th>Project</th>
-	<th>Sponsor/Notes</th>
+        <th style="width:50%">Project</th>
+	<th style="width:50%">Sponsor/Notes</th>
       </tr>
     </thead>
     <tbody>
     <% for p in @projects %>
       <tr style="min-height: 3em;">
         <td><%= p.name %></td>
-	<td><%= p.owner_requests.map { |r| r.person.name }.join(' ') %></td>
+	<td>
+	<!-- commented out. sponsor information not accurate enough this year.
+             p.owner_requests.map { |r| r.person.name }.join(' ') -->
+	</td>
       </tr>
     <% end %>
     </tbody>
