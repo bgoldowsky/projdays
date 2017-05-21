@@ -1,10 +1,30 @@
 <span class="blockcontrol">
+  <%= link_to 'Back to project list', :action => 'fullness' %><br/>
   <%= link_to 'Back to project', :action=>'show', :id=>@project %><br/>
 </span>
 
 <h2>Overlaps with project: <%= @project.name %></h2>
 
-<p><%= @map[@project].size %> requests</p>
+<% form_tag({}, {:method=>'GET'}) do %>
+<fieldset>
+<div class="formrow">
+  <label class="formlabel" for="left">At least this rank for this project:</label>
+  <div class="formitem">
+    <%= select_tag :left, options_for_select(1..Person.unit_max_choices, @left_limit) %>
+  </div>
+</div>
+<div class="formrow">
+  <label class="formlabel" for="left">At least this rank for the other project:</label>
+  <div class="formitem">
+    <%= select_tag :right, options_for_select(1..Person.unit_max_choices, @right_limit) %>
+  </div>
+</div>
+<div class="formrow">
+  <div class="formlabel"></div>
+  <div class="formitem"><%= submit_tag 'Update' %></div>
+</div>
+</fieldset>
+<% end %>
 
 <table>
   <thead>
@@ -15,7 +35,7 @@
   </thead>
   <tbody>
     <% for p in @projects %>
-      <% reqs = @map[p] || {} %>
+      <% reqs = @map[p] || [] %>
       <tr>
         <td><%= (@p_requests - reqs).size %></td>
 	<td><%= (@p_requests & reqs).size %></td>

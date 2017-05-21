@@ -29,10 +29,15 @@ class ProjectsController < ApplicationController
   end
 
   def overlaps
+    @left_limit = params[:left] ? params[:left].to_i : Person.unit_max_choices
+    @right_limit = params[:right] ? params[:right].to_i : Person.unit_max_choices
     @project = Project.find(params[:id])
-    @projects = Project.list_real
-    @map = Request.requester_map
-    @p_requests = @map[@project] || []
+    @map = Request.requester_map(@right_limit)
+    @p_requests = Request.requesters_for(@project, @left_limit)
+    ## List of projects sorted by number of overlapping requests (inversely)
+    @projects = Project.list_real.reject{|p| p==@project}.sort_by do |p|
+      -((@map[p]||[]) & @p_requests).size
+    end
   end
 
   def recommended
