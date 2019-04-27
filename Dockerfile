@@ -8,6 +8,6 @@ COPY . /usr/src/app
 
 WORKDIR /usr/src/app/script
 EXPOSE 3000
-CMD ["./server", "-e", "development"]
+CMD ["./server", "-e", "production"]
 
 ENTRYPOINT ["/usr/src/app/docker-entrypoint.sh"]
