@@ -1,10 +1,10 @@
 production:
   adapter: mysql
   encoding: utf8
-  database: root_projday
-  username: root_projday
+  host:     %%%DBHOST%%%
+  database: %%%DBNAME%%%
+  username: %%%DBUSER%%%
   password: %%%DBPASS%%%
-  host: %%%DBHOST%%%
 
 development:
   adapter: mysql
