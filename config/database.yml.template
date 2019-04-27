@@ -1,11 +1,25 @@
+production:
+  adapter: mysql
+  encoding: utf8
+  database: root_projday
+  username: root_projday
+  password: %%%DBPASS%%%
+  host: %%%DBHOST%%%
+
 development:
   adapter: mysql
   encoding: utf8
   database: pd
-  username: 
-  password: 
-  host: localhost
-  socket: /var/lib/mysql/mysql.sock
+  username: dev
+  password: dev
+  host: 127.0.0.1
+
+# Should work from linux docker to host:
+#  host: 172.17.0.1
+# And from mac:
+#  host: host.docker.internal
+# Or purely local:
+#  socket: /var/lib/mysql/mysql.sock
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -13,16 +27,9 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: 
-  username: 
+  database: pd_test
+  username: boris
   password:
   host: localhost
   socket: /var/lib/mysql/mysql.sock
 
-production:
-  adapter: mysql
-  encoding: utf8
-  database: 
-  username: 
-  password: 
-  host: 
